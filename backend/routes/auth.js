@@ -1,5 +1,6 @@
 import {
     findUser,
+    verifyPassword,
     createSession,
     getSessionUser,
     removeSession
@@ -19,7 +20,19 @@ export async function login(request, DB) {
     if (!user) {
         return jsonResponse({
             success: false,
-            message: "User tidak ditemukan"
+            message: "Username atau password salah"
+        }, 401);
+    }
+
+    const valid = await verifyPassword(
+        body.password,
+        user.password_hash || user.password
+    );
+
+    if (!valid) {
+        return jsonResponse({
+            success: false,
+            message: "Username atau password salah"
         }, 401);
     }
 
