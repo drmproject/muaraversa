@@ -1,0 +1,8 @@
+-- Muaraversa Classes
+CREATE TABLE IF NOT EXISTS classes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  grade TEXT,
+  teacher_id INTEGER,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
