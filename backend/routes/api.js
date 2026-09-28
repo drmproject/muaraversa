@@ -3,26 +3,26 @@ import {
 } from "../services/database.js";
 
 
-
 export async function apiInfo(DB) {
 
+    let users = [];
 
-    const users =
-    await getUsers(DB);
+    if (DB) {
 
+        users = await getUsers(DB);
 
+    }
 
     return {
 
-        name:
-        "Muaraversa API",
+        name: "Muaraversa API",
 
-        status:
-        "active",
+        status: "active",
+
+        database: DB ? "connected" : "not configured",
 
         users
 
     };
-
 
 }
