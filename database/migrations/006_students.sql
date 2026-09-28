@@ -1,0 +1,9 @@
+-- Muaraversa Students
+CREATE TABLE IF NOT EXISTS students (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nis TEXT,
+  name TEXT NOT NULL,
+  class_id INTEGER,
+  parent_id INTEGER,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
