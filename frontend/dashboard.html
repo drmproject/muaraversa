@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dashboard</title>
+<title>Dashboard - Muaraversa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial,sans-serif;background:#f4f7fb;margin:0;padding:20px}
+.card{background:white;padding:20px;border-radius:12px;max-width:600px;margin:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+button{padding:10px 16px;border:0;border-radius:8px;cursor:pointer}
+</style>
 </head>
-
 <body>
-
-<h1>Dashboard Muaraversa</h1>
-
+<div class="card">
+<h1>Muaraversa Dashboard</h1>
+<p id="user">Memuat pengguna...</p>
+<p id="role"></p>
+<button onclick="logout()">Logout</button>
+</div>
+<script src="js/dashboard.js"></script>
 </body>
 </html>
