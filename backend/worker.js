@@ -22,6 +22,10 @@ import {
 } from "./routes/users.js";
 
 import {
+    teachers
+} from "./routes/teachers.js";
+
+import {
     jsonResponse
 } from "./services/response.js";
 
@@ -33,21 +37,15 @@ export default {
         const url = new URL(request.url);
 
         if (url.pathname === "/api/health") {
-            return jsonResponse(
-                healthCheck()
-            );
+            return jsonResponse(healthCheck());
         }
 
         if (url.pathname === "/api") {
-            return jsonResponse(
-                await apiInfo(env.DB)
-            );
+            return jsonResponse(await apiInfo(env.DB));
         }
 
         if (url.pathname === "/api/database-test") {
-            return jsonResponse(
-                await databaseTest(env.DB)
-            );
+            return jsonResponse(await databaseTest(env.DB));
         }
 
         if (url.pathname === "/api/login" && request.method === "POST") {
@@ -64,6 +62,10 @@ export default {
 
         if (url.pathname === "/api/admin/profile" && request.method === "GET") {
             return await adminProfile(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/teachers")) {
+            return await teachers(request, env.DB);
         }
 
         if (url.pathname === "/api/users") {
