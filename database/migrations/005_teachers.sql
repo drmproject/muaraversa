@@ -1,0 +1,9 @@
+-- Muaraversa Teachers
+CREATE TABLE IF NOT EXISTS teachers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER,
+  nip TEXT,
+  name TEXT NOT NULL,
+  subject TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
