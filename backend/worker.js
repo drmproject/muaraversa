@@ -14,6 +14,10 @@ import {
 } from "./routes/auth.js";
 
 import {
+    adminProfile
+} from "./routes/admin.js";
+
+import {
     jsonResponse
 } from "./services/response.js";
 
@@ -52,6 +56,10 @@ export default {
 
         if (url.pathname === "/api/logout" && request.method === "POST") {
             return await logout(request, env.DB);
+        }
+
+        if (url.pathname === "/api/admin/profile" && request.method === "GET") {
+            return await adminProfile(request, env.DB);
         }
 
         return jsonResponse({
