@@ -11,6 +11,22 @@ export async function findUser(DB, username) {
 }
 
 
+export async function verifyPassword(password, passwordHash) {
+
+    if (!passwordHash) {
+        return false;
+    }
+
+    // Support temporary plain password during development.
+    // Production should use hashed password storage.
+    if (password === passwordHash) {
+        return true;
+    }
+
+    return false;
+}
+
+
 export async function createSession(DB, userId) {
 
     const token = crypto.randomUUID();
@@ -28,6 +44,10 @@ export async function createSession(DB, userId) {
 
 export async function getSessionUser(DB, token) {
 
+    if (!token) {
+        return null;
+    }
+
     return await DB
         .prepare(
             `SELECT users.id, users.username, users.name, users.role
@@ -42,6 +62,10 @@ export async function getSessionUser(DB, token) {
 
 
 export async function removeSession(DB, token) {
+
+    if (!token) {
+        return;
+    }
 
     await DB
         .prepare("DELETE FROM sessions WHERE token = ?")
