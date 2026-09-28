@@ -3,7 +3,8 @@ import {
 } from "./routes/health.js";
 
 import {
-    apiInfo
+    apiInfo,
+    databaseTest
 } from "./routes/api.js";
 
 import {
@@ -29,6 +30,14 @@ export default {
 
             return jsonResponse(
                 await apiInfo(env.DB)
+            );
+
+        }
+
+        if (url.pathname === "/api/database-test") {
+
+            return jsonResponse(
+                await databaseTest(env.DB)
             );
 
         }
