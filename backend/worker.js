@@ -1,14 +1,57 @@
-export default {
-  async fetch(request, env) {
+import {
+    healthCheck
+} from "./routes/health.js";
 
-    return new Response(
-      "Muaraversa Backend Running",
-      {
-        headers:{
-          "content-type":"text/plain"
-        }
-      }
+import {
+    apiInfo
+} from "./routes/api.js";
+
+import {
+    jsonResponse
+} from "./services/response.js";
+
+
+export default {
+
+async fetch(request, env) {
+
+
+const url =
+new URL(request.url);
+
+
+
+if(url.pathname === "/api/health"){
+
+    return jsonResponse(
+        healthCheck()
     );
 
-  }
+}
+
+
+
+if(url.pathname === "/api"){
+
+    return jsonResponse(
+        apiInfo()
+    );
+
+}
+
+
+
+return jsonResponse({
+
+    app:
+    "Muaraversa",
+
+    message:
+    "Backend Running"
+
+});
+
+
+}
+
 };
