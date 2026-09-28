@@ -1,3 +1,5 @@
+import { createSession } from '../services/session-service.js';
+
 export async function login(request, env) {
   try {
     const body = await request.json();
@@ -29,10 +31,13 @@ export async function login(request, env) {
       }, { status: 401 });
     }
 
+    const session = await createSession(env.DB, user.id);
+
     return Response.json({
       success: true,
-      message: 'Authentication foundation active',
-      user
+      message: 'Login successful',
+      user,
+      session
     });
 
   } catch (error) {
