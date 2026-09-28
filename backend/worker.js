@@ -21,7 +21,13 @@ new URL(request.url);
 
 
 
-if(url.pathname === "/api/health"){
+if(url.pathname === "/api"){
+
+    return jsonResponse(
+        await apiInfo(env.DB)
+    );
+
+}
 
     return jsonResponse(
         healthCheck()
