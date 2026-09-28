@@ -13,51 +13,32 @@ import {
 
 export default {
 
-async fetch(request, env) {
+    async fetch(request, env) {
 
+        const url = new URL(request.url);
 
-const url =
-new URL(request.url);
+        if (url.pathname === "/api/health") {
 
+            return jsonResponse(
+                healthCheck()
+            );
 
+        }
 
-if(url.pathname === "/api"){
+        if (url.pathname === "/api") {
 
-    return jsonResponse(
-        await apiInfo(env.DB)
-    );
+            return jsonResponse(
+                await apiInfo(env.DB)
+            );
 
-}
+        }
 
-    return jsonResponse(
-        healthCheck()
-    );
+        return jsonResponse({
+            app: "Muaraversa",
+            message: "Backend Running",
+            version: "0.1.0"
+        });
 
-}
-
-
-
-if(url.pathname === "/api"){
-
-    return jsonResponse(
-        apiInfo()
-    );
-
-}
-
-
-
-return jsonResponse({
-
-    app:
-    "Muaraversa",
-
-    message:
-    "Backend Running"
-
-});
-
-
-}
+    }
 
 };
