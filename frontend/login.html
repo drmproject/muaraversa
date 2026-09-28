@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - Muaraversa</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f1f5f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
+.card{background:white;padding:32px;border-radius:16px;width:320px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
+h1{text-align:center;color:#1e40af}
+input,button{width:100%;padding:12px;margin-top:12px;box-sizing:border-box;border-radius:8px}
+input{border:1px solid #cbd5e1}
+button{background:#1e40af;color:white;border:0;cursor:pointer}
+</style>
 </head>
-
 <body>
-
-<h1>Login</h1>
-
+<div class="card">
+<h1>Muaraversa</h1>
+<p style="text-align:center">Digital School Platform</p>
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Masuk</button>
+</div>
+<script src="js/auth.js"></script>
 </body>
 </html>
