@@ -51,3 +51,14 @@ Backend API
 Database
 ↓
 AI Engine
+
+## Cloudflare Deployment
+
+Backend menggunakan:
+
+- Cloudflare Worker
+- Cloudflare D1 Database
+
+Deployment:
+
+wrangler deploy
