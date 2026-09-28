@@ -3,6 +3,11 @@
 
 export async function getUsers(DB) {
 
+    if (!DB) {
+
+        return [];
+
+    }
 
     const result = await DB
         .prepare(
@@ -11,6 +16,6 @@ export async function getUsers(DB) {
         .all();
 
 
-    return result.results;
+    return result.results || [];
 
 }
