@@ -18,6 +18,10 @@ import {
 } from "./routes/admin.js";
 
 import {
+    users
+} from "./routes/users.js";
+
+import {
     jsonResponse
 } from "./services/response.js";
 
@@ -60,6 +64,10 @@ export default {
 
         if (url.pathname === "/api/admin/profile" && request.method === "GET") {
             return await adminProfile(request, env.DB);
+        }
+
+        if (url.pathname === "/api/users") {
+            return await users(request, env);
         }
 
         return jsonResponse({
