@@ -29,3 +29,12 @@ Menyimpan data kelas.
 Semua perubahan struktur database disimpan di:
 
 database/migrations/
+## Migration History
+
+### 001_initial.sql
+
+Created:
+
+- users table
+- schools table
+- classes table
