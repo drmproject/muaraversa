@@ -7,14 +7,20 @@
 <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-<div class="container">
-<h1>Login Admin Muaraversa</h1>
-<form id="loginForm">
-<input id="username" type="text" placeholder="Username" required>
-<input id="password" type="password" placeholder="Password" required>
+<main class="container">
+<section class="admin-card" aria-labelledby="login-title">
+<h1 id="login-title">Login Admin Muaraversa</h1>
+<form id="loginForm" autocomplete="off">
+<label for="username">Username</label>
+<input id="username" name="username" type="text" placeholder="Username" required autocomplete="username">
+
+<label for="password">Password</label>
+<input id="password" name="password" type="password" placeholder="Password" required autocomplete="current-password">
+
 <button type="submit">Masuk</button>
 </form>
-</div>
+</section>
+</main>
 <script src="assets/js/auth.js"></script>
 </body>
 </html>
