@@ -13,17 +13,19 @@ export async function findUser(DB, username) {
 
 export async function verifyPassword(password, passwordHash) {
 
-    if (!passwordHash) {
+    if (!password || !passwordHash) {
         return false;
     }
 
-    // Support temporary plain password during development.
-    // Production should use hashed password storage.
-    if (password === passwordHash) {
-        return true;
-    }
+    // SHA-256 password verification for production storage
+    const data = new TextEncoder().encode(password);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashedPassword = hashArray
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
 
-    return false;
+    return hashedPassword === passwordHash;
 }
 
 
