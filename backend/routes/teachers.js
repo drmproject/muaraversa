@@ -14,9 +14,20 @@ export async function teachers(request, DB) {
 
     if (request.method === "POST") {
         const body = await request.json();
+
         await DB.prepare(
             "INSERT INTO teachers (name, nip, subject) VALUES (?, ?, ?)"
         ).bind(body.name, body.nip, body.subject).run();
+
+        return Response.json({ success: true });
+    }
+
+    if (request.method === "PUT") {
+        const body = await request.json();
+
+        await DB.prepare(
+            "UPDATE teachers SET name = ?, nip = ?, subject = ? WHERE id = ?"
+        ).bind(body.name, body.nip, body.subject, id).run();
 
         return Response.json({ success: true });
     }
