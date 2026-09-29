@@ -15,16 +15,16 @@ export async function students(request, DB) {
     if (request.method === "POST") {
         const body = await request.json();
         await DB.prepare(
-            "INSERT INTO students (name, nis, class) VALUES (?, ?, ?)"
-        ).bind(body.name, body.nis, body.class).run();
+            "INSERT INTO students (name, nis, class_id) VALUES (?, ?, ?)"
+        ).bind(body.name, body.nis, body.class_id).run();
         return Response.json({ success: true });
     }
 
     if (request.method === "PUT") {
         const body = await request.json();
         await DB.prepare(
-            "UPDATE students SET name = ?, nis = ?, class = ? WHERE id = ?"
-        ).bind(body.name, body.nis, body.class, id).run();
+            "UPDATE students SET name = ?, nis = ?, class_id = ? WHERE id = ?"
+        ).bind(body.name, body.nis, body.class_id, id).run();
         return Response.json({ success: true });
     }
 
