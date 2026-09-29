@@ -10,20 +10,34 @@
 <div class="container">
 <h1>Data Siswa</h1>
 
-<div>
-<input id="name" placeholder="Nama siswa">
-<input id="nis" placeholder="NIS">
-<input id="class_id" placeholder="ID Kelas">
-<button onclick="addStudent()">Tambah</button>
-</div>
+<section class="student-form">
+<input id="name" type="text" placeholder="Nama siswa" autocomplete="off">
+<input id="nis" type="text" placeholder="NIS" autocomplete="off">
+<input id="class_id" type="text" placeholder="ID Kelas" autocomplete="off">
+<button type="button" onclick="addStudent()">Tambah Siswa</button>
+</section>
 
-<button onclick="loadStudents()">Refresh</button>
+<div class="actions">
+<button type="button" onclick="loadStudents()">Refresh Data</button>
+</div>
 
 <table>
-<thead><tr><th>Nama</th><th>NIS</th><th>Kelas ID</th><th>Aksi</th></tr></thead>
-<tbody id="studentList"></tbody>
+<thead>
+<tr>
+<th>Nama</th>
+<th>NIS</th>
+<th>Kelas ID</th>
+<th>Aksi</th>
+</tr>
+</thead>
+<tbody id="studentList">
+<tr>
+<td colspan="4">Memuat data siswa...</td>
+</tr>
+</tbody>
 </table>
 </div>
+
 <script src="assets/js/students.js"></script>
 </body>
 </html>
