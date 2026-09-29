@@ -7,10 +7,11 @@ import {
     jsonResponse
 } from "../services/response.js";
 
+const ALLOWED_ROLES = ["admin", "operator", "guru"];
+
 export async function users(request, env) {
 
     await requireAuth(request, env.DB);
-
     await requireRole(request, env.DB, ["admin"]);
 
     const method = request.method;
@@ -29,6 +30,13 @@ export async function users(request, env) {
     if (method === "POST") {
         const body = await request.json();
 
+        if (!ALLOWED_ROLES.includes(body.role)) {
+            return jsonResponse({
+                success: false,
+                message: "Invalid role"
+            }, 400);
+        }
+
         await env.DB
             .prepare(`
                 INSERT INTO users
@@ -37,7 +45,7 @@ export async function users(request, env) {
             `)
             .bind(
                 body.username,
-                body.password_hash || body.password,
+                body.password_hash,
                 body.name,
                 body.role,
                 "active"
@@ -53,6 +61,13 @@ export async function users(request, env) {
     if (method === "PUT") {
         const id = new URL(request.url).searchParams.get("id");
         const body = await request.json();
+
+        if (body.role && !ALLOWED_ROLES.includes(body.role)) {
+            return jsonResponse({
+                success: false,
+                message: "Invalid role"
+            }, 400);
+        }
 
         await env.DB
             .prepare(`
