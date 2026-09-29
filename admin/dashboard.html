@@ -11,19 +11,28 @@
 <header class="admin-header">
 <div>
 <h1>Dashboard Admin Muaraversa</h1>
-<p>Panel pengelolaan data sekolah</p>
+<p>Panel pengelolaan data sekolah digital</p>
 </div>
+<div class="admin-actions">
+<span id="admin-status">Admin Aktif</span>
 <button type="button" onclick="logoutAdmin()">Logout</button>
+</div>
 </header>
 
 <nav class="admin-nav" aria-label="Navigasi Admin">
-<a href="dashboard.html">Dashboard</a>
+<a class="active" href="dashboard.html">Dashboard</a>
 <a href="teachers.html">Guru</a>
 <a href="students.html">Siswa</a>
 <a href="classes.html">Kelas</a>
+<a href="school.html">Sekolah</a>
 </nav>
 
 <main>
+<section class="dashboard-intro">
+<h2>Ringkasan Sistem</h2>
+<p>Kelola data utama Muaraversa melalui panel admin.</p>
+</section>
+
 <section class="cards" aria-label="Ringkasan Data">
 <div class="card">
 <h3>Guru</h3>
