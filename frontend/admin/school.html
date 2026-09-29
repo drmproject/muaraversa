@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profil Sekolah - Muaraversa</title>
 <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
 <div class="admin-card">
 <h1>Profil Sekolah</h1>
-<div id="school-data">Memuat data sekolah...</div>
+<form id="school-form">
+<label>Nama Sekolah</label>
+<input id="school-name" required>
+<label>Alamat</label>
+<textarea id="school-address" required></textarea>
+<button type="submit">Simpan</button>
+</form>
+<div id="school-message"></div>
 </div>
 <script src="js/school.js"></script>
 </body>
