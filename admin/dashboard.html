@@ -6,28 +6,51 @@
 <title>Muaraversa Admin Dashboard</title>
 <link rel="stylesheet" href="assets/css/admin.css">
 </head>
-<body onload="requireAdmin();">
-<div class="container">
+<body>
+<div class="container" id="admin-dashboard">
 <header class="admin-header">
+<div>
 <h1>Dashboard Admin Muaraversa</h1>
-<button onclick="logoutAdmin()">Logout</button>
+<p>Panel pengelolaan data sekolah</p>
+</div>
+<button type="button" onclick="logoutAdmin()">Logout</button>
 </header>
 
-<nav class="admin-nav">
+<nav class="admin-nav" aria-label="Navigasi Admin">
 <a href="dashboard.html">Dashboard</a>
 <a href="teachers.html">Guru</a>
 <a href="students.html">Siswa</a>
 <a href="classes.html">Kelas</a>
 </nav>
 
-<div class="cards">
-<div class="card"><h3>Guru</h3><p id="teachers">0</p></div>
-<div class="card"><h3>Siswa</h3><p id="students">0</p></div>
-<div class="card"><h3>Kelas</h3><p id="classes">0</p></div>
-<div class="card"><h3>Sekolah</h3><p id="school">-</p></div>
+<main>
+<section class="cards" aria-label="Ringkasan Data">
+<div class="card">
+<h3>Guru</h3>
+<p id="teachers">0</p>
 </div>
+<div class="card">
+<h3>Siswa</h3>
+<p id="students">0</p>
 </div>
+<div class="card">
+<h3>Kelas</h3>
+<p id="classes">0</p>
+</div>
+<div class="card">
+<h3>Sekolah</h3>
+<p id="school">-</p>
+</div>
+</section>
+</main>
+</div>
+
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/dashboard.js"></script>
+<script>
+if (typeof requireAdmin === "function") {
+  requireAdmin();
+}
+</script>
 </body>
 </html>
