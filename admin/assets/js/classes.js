@@ -2,14 +2,30 @@ const API = '/api/classes';
 const TEACHER_API = '/api/teachers';
 
 async function getJson(url, options = {}) {
-  const response = await fetch(url, options);
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers || {})
+    }
+  });
+
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(data.message || 'Request failed');
+    throw new Error(data.message || 'Request gagal');
   }
 
   return data;
+}
+
+function escapeHtml(value = '') {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
 
 async function loadTeachers() {
@@ -22,16 +38,11 @@ async function loadTeachers() {
 
     select.innerHTML = '<option value="">Pilih Wali Kelas</option>';
 
-    if (!teachers.length) {
-      select.innerHTML += '<option value="">Data guru kosong</option>';
-      return;
-    }
-
     teachers.forEach((teacher) => {
-      select.innerHTML += `<option value="${teacher.id}">${teacher.name || teacher.nama || 'Tanpa Nama'}</option>`;
+      select.innerHTML += `<option value="${teacher.id}">${escapeHtml(teacher.name || teacher.nama || 'Tanpa Nama')}</option>`;
     });
   } catch (error) {
-    console.error('Gagal memuat guru:', error);
+    console.error(error);
     select.innerHTML = '<option value="">Gagal memuat guru</option>';
   }
 }
@@ -44,18 +55,20 @@ async function loadClasses() {
     const data = await getJson(API);
     const classes = data.classes || data.data || [];
 
-    list.innerHTML = '';
-
-    if (!classes.length) {
-      list.innerHTML = '<tr><td colspan="4">Belum ada data kelas</td></tr>';
-      return;
-    }
-
-    classes.forEach((item, index) => {
-      list.innerHTML += `<tr><td>${index + 1}</td><td>${item.name || '-'}</td><td>${item.teacher_name || item.teacher_id || '-'}</td><td><button onclick="editClass(${item.id}, '${(item.name || '').replace(/'/g, "\\'")}', ${item.teacher_id || 0})">Edit</button> <button onclick="deleteClass(${item.id})">Hapus</button></td></tr>`;
-    });
+    list.innerHTML = classes.length
+      ? classes.map((item, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${escapeHtml(item.name || '-')}</td>
+          <td>${escapeHtml(item.teacher_name || item.teacher_id || '-')}</td>
+          <td>
+            <button onclick="editClass(${item.id}, '${String(item.name || '').replaceAll("'", "\\'")}', ${item.teacher_id || 0})">Edit</button>
+            <button onclick="deleteClass(${item.id})">Hapus</button>
+          </td>
+        </tr>`).join('')
+      : '<tr><td colspan="4">Belum ada data kelas</td></tr>';
   } catch (error) {
-    console.error('Gagal memuat kelas:', error);
+    console.error(error);
     list.innerHTML = '<tr><td colspan="4">Gagal memuat data kelas</td></tr>';
   }
 }
@@ -67,47 +80,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const form = document.getElementById('classForm');
 
-if (form) {
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+form?.addEventListener('submit', async (event) => {
+  event.preventDefault();
 
-    const nameInput = document.getElementById('name');
-    const teacherInput = document.getElementById('teacher_id');
-    const id = document.getElementById('class_id').value;
+  const id = document.getElementById('class_id')?.value;
+  const name = document.getElementById('name')?.value.trim();
+  const teacherId = document.getElementById('teacher_id')?.value;
 
-    const name = nameInput.value.trim();
-    const teacherId = teacherInput.value;
+  if (!name || !teacherId) {
+    alert('Nama kelas dan wali kelas wajib diisi');
+    return;
+  }
 
-    if (!name) {
-      alert('Nama kelas wajib diisi');
-      return;
-    }
+  try {
+    await getJson(id ? `${API}/${id}` : API, {
+      method: id ? 'PUT' : 'POST',
+      body: JSON.stringify({ name, teacher_id: teacherId })
+    });
 
-    if (!teacherId) {
-      alert('Wali kelas wajib dipilih');
-      return;
-    }
-
-    const payload = {
-      name,
-      teacher_id: teacherId
-    };
-
-    try {
-      await getJson(id ? `${API}/${id}` : API, {
-        method: id ? 'PUT' : 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-
-      resetClassForm();
-      await loadClasses();
-    } catch (error) {
-      console.error('Gagal menyimpan kelas:', error);
-      alert(error.message || 'Gagal menyimpan data kelas');
-    }
-  });
-}
+    resetClassForm();
+    loadClasses();
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
 function editClass(id, name, teacher) {
   document.getElementById('class_id').value = id;
@@ -116,8 +112,7 @@ function editClass(id, name, teacher) {
 }
 
 function resetClassForm() {
-  const id = document.getElementById('class_id');
-  if (id) id.value = '';
+  document.getElementById('class_id').value = '';
   document.getElementById('classForm')?.reset();
 }
 
@@ -125,10 +120,9 @@ async function deleteClass(id) {
   if (!confirm('Hapus kelas?')) return;
 
   try {
-    await getJson(`${API}/${id}`, {method: 'DELETE'});
-    await loadClasses();
+    await getJson(`${API}/${id}`, { method: 'DELETE' });
+    loadClasses();
   } catch (error) {
-    console.error('Gagal menghapus kelas:', error);
-    alert(error.message || 'Gagal menghapus kelas');
+    alert(error.message);
   }
 }
