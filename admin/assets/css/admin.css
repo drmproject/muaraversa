@@ -1,0 +1,1 @@
+body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0}.container{padding:24px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}.card{background:white;padding:20px;border-radius:12px;box-shadow:0 2px 8px #0001}.card p{font-size:32px;font-weight:bold;margin:10px 0}
