@@ -1,27 +1,34 @@
 async function loadSchool(){
- const target=document.getElementById('school-data');
- if(!target) return;
-
+ const name=document.getElementById('school-name');
+ const address=document.getElementById('school-address');
  try{
   const res=await fetch('/api/school');
-
-  if(!res.ok){
-   throw new Error('Gagal memuat data sekolah');
-  }
-
+  if(!res.ok) throw new Error('Gagal memuat');
   const data=await res.json();
-  const school=data.data || data;
-
-  target.innerHTML=`
-   <div class="school-profile">
-    <h2>${school.name || '-'}</h2>
-    <p>NPSN: ${school.npsn || '-'}</p>
-    <p>Alamat: ${school.address || '-'}</p>
-   </div>
-  `;
+  const school=data.school || data.data || data;
+  if(name) name.value=school.name || '';
+  if(address) address.value=school.address || '';
  }catch(e){
-  target.innerHTML='Data sekolah belum tersedia';
+  console.error('School load error',e);
  }
 }
 
+async function saveSchool(e){
+ e.preventDefault();
+ try{
+  const res=await fetch('/api/school',{
+   method:'PUT',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({
+    name:document.getElementById('school-name').value,
+    address:document.getElementById('school-address').value
+   })
+  });
+  document.getElementById('school-message').textContent=res.ok?'Tersimpan':'Gagal menyimpan';
+ }catch(e){
+  document.getElementById('school-message').textContent='Gagal menyimpan';
+ }
+}
+
+document.getElementById('school-form')?.addEventListener('submit',saveSchool);
 loadSchool();
