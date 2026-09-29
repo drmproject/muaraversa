@@ -5,14 +5,28 @@ const SESSION_VALUE = 'active';
 
 function saveSession() {
   localStorage.setItem(AUTH_KEY, SESSION_VALUE);
+  localStorage.setItem('login_time', Date.now().toString());
 }
 
 function clearSession() {
   localStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem('login_time');
 }
 
 function isAuthenticated() {
   return localStorage.getItem(AUTH_KEY) === SESSION_VALUE;
+}
+
+function checkSessionTimeout() {
+  const loginTime = Number(localStorage.getItem('login_time'));
+  const maxAge = 24 * 60 * 60 * 1000;
+
+  if (loginTime && Date.now() - loginTime > maxAge) {
+    clearSession();
+    return false;
+  }
+
+  return true;
 }
 
 if (form) {
@@ -33,7 +47,7 @@ if (form) {
 }
 
 function requireAdmin() {
-  if (!isAuthenticated()) {
+  if (!isAuthenticated() || !checkSessionTimeout()) {
     window.location.href = 'login.html';
   }
 }
