@@ -3,7 +3,7 @@ async function loadStudents() {
         const res = await fetch('/api/students');
 
         if (!res.ok) {
-            throw new Error('Failed loading students');
+            throw new Error('Gagal memuat data siswa');
         }
 
         const data = await res.json();
@@ -16,9 +16,9 @@ async function loadStudents() {
         (data.students || []).forEach((student) => {
             list.innerHTML += `
                 <tr>
-                    <td>${student.name || ''}</td>
-                    <td>${student.nis || ''}</td>
-                    <td>${student.class_id || ''}</td>
+                    <td>${student.name || '-'}</td>
+                    <td>${student.nis || '-'}</td>
+                    <td>${student.class_id || '-'}</td>
                     <td>
                         <button onclick="deleteStudent(${student.id})">Hapus</button>
                     </td>
@@ -32,27 +32,48 @@ async function loadStudents() {
 }
 
 async function addStudent() {
-    await fetch('/api/students', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: document.getElementById('name').value,
-            nis: document.getElementById('nis').value,
-            class_id: document.getElementById('class_id').value
-        })
-    });
+    const name = document.getElementById('name')?.value.trim();
+    const nis = document.getElementById('nis')?.value.trim();
+    const class_id = document.getElementById('class_id')?.value.trim();
 
-    loadStudents();
+    if (!name || !nis) {
+        alert('Nama dan NIS wajib diisi');
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/students', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, nis, class_id })
+        });
+
+        if (!res.ok) {
+            throw new Error('Gagal menambah siswa');
+        }
+
+        loadStudents();
+    } catch (error) {
+        console.error('Add student error:', error);
+    }
 }
 
 async function deleteStudent(id) {
-    await fetch('/api/students/' + id, {
-        method: 'DELETE'
-    });
+    try {
+        const res = await fetch('/api/students/' + id, {
+            method: 'DELETE'
+        });
 
-    loadStudents();
+        if (!res.ok) {
+            throw new Error('Gagal menghapus siswa');
+        }
+
+        loadStudents();
+    } catch (error) {
+        console.error('Delete student error:', error);
+    }
 }
 
 loadStudents();
