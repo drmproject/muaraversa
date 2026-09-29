@@ -1,3 +1,5 @@
+import { writeAudit } from "../services/audit.js";
+
 export async function classes(request, DB) {
 
     if (!DB) {
@@ -6,6 +8,7 @@ export async function classes(request, DB) {
 
     const url = new URL(request.url);
     const id = url.pathname.split("/").pop();
+    const userId = request.user?.id || null;
 
     if (request.method === "GET") {
         const result = await DB.prepare("SELECT * FROM classes ORDER BY id DESC").all();
@@ -16,6 +19,7 @@ export async function classes(request, DB) {
         const body = await request.json();
         await DB.prepare("INSERT INTO classes (name, teacher_id) VALUES (?, ?)")
             .bind(body.name, body.teacher_id).run();
+        await writeAudit(DB, userId, "CREATE_CLASS", body.name || "");
         return Response.json({ success: true });
     }
 
@@ -23,12 +27,13 @@ export async function classes(request, DB) {
         const body = await request.json();
         await DB.prepare("UPDATE classes SET name = ?, teacher_id = ? WHERE id = ?")
             .bind(body.name, body.teacher_id, id).run();
+        await writeAudit(DB, userId, "UPDATE_CLASS", id);
         return Response.json({ success: true });
     }
 
     if (request.method === "DELETE") {
-        await DB.prepare("DELETE FROM classes WHERE id = ?")
-            .bind(id).run();
+        await DB.prepare("DELETE FROM classes WHERE id = ?").bind(id).run();
+        await writeAudit(DB, userId, "DELETE_CLASS", id);
         return Response.json({ success: true });
     }
 
