@@ -14,6 +14,10 @@ import {
 } from "./routes/auth.js";
 
 import {
+    getSessionUser
+} from "./services/auth.js";
+
+import {
     adminProfile
 } from "./routes/admin.js";
 
@@ -45,6 +49,16 @@ import {
     jsonResponse
 } from "./services/response.js";
 
+async function getUser(request, DB) {
+    const auth = request.headers.get("Authorization") || "";
+    const token = auth.replace("Bearer ", "");
+    return await getSessionUser(DB, token);
+}
+
+function deny(message, status) {
+    return jsonResponse({ error: message }, status);
+}
+
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
@@ -57,12 +71,37 @@ export default {
         if (url.pathname === "/api/me" && request.method === "GET") return await me(request, env.DB);
         if (url.pathname === "/api/logout" && request.method === "POST") return await logout(request, env.DB);
 
-        if (url.pathname === "/api/admin/profile" && request.method === "GET") return await adminProfile(request, env.DB);
+        const user = await getUser(request, env.DB);
 
-        if (url.pathname.startsWith("/api/dashboard")) return await dashboard(request, env.DB);
-        if (url.pathname.startsWith("/api/teachers")) return await teachers(request, env.DB);
-        if (url.pathname.startsWith("/api/students")) return await students(request, env.DB);
-        if (url.pathname.startsWith("/api/classes")) return await classes(request, env.DB);
+        if (url.pathname === "/api/admin/profile" && request.method === "GET") {
+            if (!user) return deny("Unauthorized", 401);
+            if (user.role !== "admin") return deny("Forbidden", 403);
+            return await adminProfile(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/dashboard")) {
+            if (!user) return deny("Unauthorized", 401);
+            return await dashboard(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/teachers")) {
+            if (!user) return deny("Unauthorized", 401);
+            if (!["admin", "operator"].includes(user.role) && request.method !== "GET") return deny("Forbidden", 403);
+            return await teachers(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/students")) {
+            if (!user) return deny("Unauthorized", 401);
+            if (!["admin", "operator"].includes(user.role) && request.method !== "GET") return deny("Forbidden", 403);
+            return await students(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/classes")) {
+            if (!user) return deny("Unauthorized", 401);
+            if (!["admin", "operator"].includes(user.role) && request.method !== "GET") return deny("Forbidden", 403);
+            return await classes(request, env.DB);
+        }
+
         if (url.pathname.startsWith("/api/school")) return await school(request, env.DB);
         if (url.pathname === "/api/users") return await users(request, env);
 
