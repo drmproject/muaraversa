@@ -1,23 +1,675 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muaraversa</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muaraversa - Digital School Platform</title>
+  <meta name="description" content="Digital School Platform - Sistem Manajemen Sekolah Digital untuk data guru, siswa, kelas, dan profil sekolah.">
+  <meta property="og:title" content="Muaraversa">
+  <meta property="og:description" content="Digital School Platform - Sistem Manajemen Sekolah Digital untuk data guru, siswa, kelas, dan profil sekolah.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Top Bar & Persona Bar */
+    .persona-bar {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 8px 24px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .persona-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .persona-chip {
+      background: #1e293b;
+      color: #f1f5f9;
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .persona-chip:hover {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Main Navigation (3-Zone Top Bar Contract) */
+    .main-nav {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+    .nav-brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .nav-brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Hero Section with Cinematic Photographic Backdrop */
+    .hero-container {
+      position: relative;
+      background-color: #0f172a;
+      color: #ffffff;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.35;
+      filter: saturate(1.1);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 50%, rgba(15, 23, 42, 0.7) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px;
+      width: 100%;
+    }
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #93c5fd;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .hero-title {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 780px;
+      text-wrap: balance;
+    }
+    .hero-desc {
+      font-size: 17px;
+      color: #cbd5e1;
+      line-height: 1.65;
+      max-width: 680px;
+      margin-bottom: 32px;
+    }
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Principal & Accreditation Spotlight */
+    .spotlight-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      margin-top: -40px;
+      position: relative;
+      z-index: 20;
+    }
+    .principal-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ffffff;
+    }
+
+    /* Bento Feature Cards */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .bento-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .bento-card:hover {
+      box-shadow: var(--shadow);
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+    }
+    .bento-span-4 { grid-column: span 4; }
+    .bento-span-6 { grid-column: span 6; }
+    .bento-span-8 { grid-column: span 8; }
+    .bento-span-12 { grid-column: span 12; }
+
+    /* Role Cards */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .role-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .role-item:hover {
+      border-color: #3b82f6;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .bento-span-4, .bento-span-6, .bento-span-8 { grid-column: span 12; }
+      .spotlight-card { grid-template-columns: 1fr; text-align: center; }
+      .principal-photo { margin: 0 auto; }
+      .hero-title { font-size: 32px; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<header class="header">
-<h1>Muaraversa</h1>
-<p>Digital School Platform</p>
-</header>
-<main class="card">
-<h2>Welcome</h2>
-<p>Foundation Environment Ready</p>
-<button type="button">Start</button>
-</main>
-</div>
-<script src="js/app.js"></script>
+
+  <!-- 1. Top Persona Quick Switcher Bar -->
+  <aside class="persona-bar" aria-label="Akses Cepat Persona">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-weight:700;color:#93c5fd">⚡ Uji Coba Multi-Role Persona:</span>
+      <span style="color:#94a3b8">Beralih peran tanpa logout untuk evaluasi modul lengkap:</span>
+    </div>
+    <div class="persona-buttons">
+      <button class="persona-chip" onclick="quickLogin('SUPER_ADMIN')">👑 Super Admin</button>
+      <button class="persona-chip" onclick="quickLogin('ADMIN')">💻 Admin Sekolah</button>
+      <button class="persona-chip" onclick="quickLogin('KEPALA_SEKOLAH')">🏛️ Kepala Sekolah</button>
+      <button class="persona-chip" onclick="quickLogin('GURU')">👨‍🏫 Guru Pengajar</button>
+      <button class="persona-chip" onclick="quickLogin('SISWA')">👦 Peserta Didik</button>
+      <button class="persona-chip" onclick="quickLogin('ORANG_TUA')">👨 Orang Tua Wali</button>
+    </div>
+  </aside>
+
+  <!-- 2. Main Navigation Bar (Clean 3-Zone Contract) -->
+  <nav class="main-nav">
+    <a href="/" class="nav-brand">
+      <div class="nav-brand-logo">M</div>
+      <div>
+        <div class="nav-brand-title">MUARAVERSA</div>
+        <div class="nav-brand-sub">SDN Muarasari 1 Kota Bogor</div>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <a href="#ekosistem" class="nav-link">Modul Ekosistem</a>
+      <a href="#peran" class="nav-link">Hak Akses Peran</a>
+      <a href="#ai-smart" class="nav-link">AI Assistant</a>
+      <a href="#profil" class="nav-link">Profil Sekolah</a>
+      <a href="/admin/dashboard.html" class="nav-link">Panel Admin</a>
+    </div>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-secondary btn-sm" style="font-weight:600">Masuk Akun</a>
+      <a href="dashboard.html" class="btn btn-primary btn-sm" style="font-weight:700">🚀 Buka Portal Terpadu</a>
+    </div>
+  </nav>
+
+  <!-- 3. Hero Section with Generated Photographic Asset -->
+  <header class="hero-container">
+    <img 
+      src="/src/assets/images/hero_school_campus_1790689187713.jpg" 
+      alt="Kampus Modern Hijau SDN Muarasari 1" 
+      class="hero-bg-image"
+      referrerpolicy="no-referrer"
+      onerror="this.style.display='none'"
+    />
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-proof">
+        <span>Akreditasi A BAN-S/M</span>
+        <span aria-hidden="true">·</span>
+        <span>NPSN 20219876</span>
+        <span aria-hidden="true">·</span>
+        <span>Kurikulum Merdeka Mandiri Berbagi</span>
+      </div>
+
+      <h1 class="hero-title">
+        Ekosistem Digital Sekolah Terpadu untuk Masa Depan Pendidikan Indonesia
+      </h1>
+
+      <p class="hero-desc">
+        Satu platform sentral menghubungkan Kepala Sekolah, Guru, Tata Usaha, Siswa, dan Orang Tua. 
+        Otomasi administrasi akademik, presensi real-time, ujian CBT mandiri, e-raport digital, dan modul ajar berbantuan Google Gemini AI.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="dashboard.html" class="btn btn-primary" style="padding:14px 28px;font-size:15px;font-weight:700">
+          Masuk ke Portal Ekosistem →
+        </a>
+        <a href="login.html" class="btn btn-secondary" style="padding:14px 24px;font-size:15px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3)">
+          Login Kredensial
+        </a>
+        <button class="btn btn-secondary" style="padding:14px 20px;font-size:15px;background:#ffffff;color:#0f172a" onclick="quickLogin('GURU')">
+          Demo Guru (Pak Budi)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 4. Principal Welcome & Verification Section -->
+  <main class="page-container" style="padding-bottom:60px">
+    
+    <section class="spotlight-card" id="profil">
+      <img 
+        src="/src/assets/images/avatar_principal_1790689200441.jpg" 
+        alt="Dra. Hj. Nurjanah, M.Pd. - Kepala Sekolah" 
+        class="principal-photo"
+        referrerpolicy="no-referrer"
+        onerror="this.src='/frontend/assets/avatar.png'"
+      />
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px">
+          Sambutan Kepala Sekolah
+        </div>
+        <h2 style="font-size:22px;font-weight:800;color:#0f172a;margin:4px 0 8px">
+          Dra. Hj. Nurjanah, M.Pd.
+        </h2>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">
+          NIP. 196805121992032001 · Kepala SDN Muarasari 1 Kota Bogor
+        </div>
+        <p style="font-size:14px;color:#334155;line-height:1.6">
+          "MUARAVERSA merupakan wujud komitmen SDN Muarasari 1 dalam menghadirkan tata kelola sekolah yang transparan, akuntabel, dan berpusat pada murid. Dengan integrasi seluruh komponen sekolah ke dalam satu data terpadu, kita mewujudkan pendidikan berkualitas yang adaptif menyongsong era kecerdasan artifisial."
+        </p>
+      </div>
+    </section>
+
+    <!-- 5. Bento Grid: 10 Comprehensive Platform Capabilities -->
+    <section id="ekosistem" style="margin-top:64px">
+      <div style="text-align:center;max-width:700px;margin:0 auto">
+        <div style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px">
+          Kemampuan Sistem Menyeluruh
+        </div>
+        <h2 style="font-size:30px;font-weight:800;color:#0f172a;margin-top:4px">
+          Fitur Lengkap Ekosistem Muaraversa
+        </h2>
+        <p style="color:var(--text-muted);font-size:15px;margin-top:8px">
+          Standar tata kelola digital sekolah modern yang menghemat waktu administrasi hingga 80%.
+        </p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Feature 1: Digital Learning with Photo Asset (Span 8) -->
+        <div class="bento-card bento-span-8" style="overflow:hidden;padding:0">
+          <div style="display:grid;grid-template-columns:1fr 1fr;height:100%">
+            <div style="padding:28px;display:flex;flex-direction:column;justify-content:center">
+              <span style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase">Smart Classroom</span>
+              <h3 style="font-size:22px;font-weight:800;color:#0f172a;margin:6px 0 10px">
+                Akademik & E-Raport Kurikulum Merdeka
+              </h3>
+              <p style="font-size:14px;color:#475569;line-height:1.6;margin-bottom:18px">
+                Pengelolaan jadwal pelajaran terpadu, distribusi LKPD digital, penilaian formatif & sumatif otomatis, serta pencetakan buku raport siswa berstandar Kemendikbudristek.
+              </p>
+              <div style="display:flex;gap:12px;align-items:center;font-size:13px;font-weight:600;color:#0f172a">
+                <span>✓ Nilai Otomatis</span>
+                <span>✓ KKM Terukur</span>
+                <span>✓ Cetak PDF</span>
+              </div>
+            </div>
+            <div style="position:relative;background:#f1f5f9">
+              <img 
+                src="/src/assets/images/classroom_smart_learning_1790689213367.jpg" 
+                alt="Pembelajaran Digital SDN Muarasari 1" 
+                style="width:100%;height:100%;object-fit:cover"
+                referrerpolicy="no-referrer"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2: AI Gemini Assistant (Span 4) -->
+        <div class="bento-card bento-span-4" id="ai-smart" style="background:linear-gradient(145deg, #eff6ff 0%, #ffffff 100%)">
+          <div>
+            <div style="font-size:28px;margin-bottom:12px">🤖</div>
+            <span style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase">AI Generator</span>
+            <h3 style="font-size:20px;font-weight:800;color:#0f172a;margin:4px 0 10px">
+              Muaraversa AI Assistant
+            </h3>
+            <p style="font-size:14px;color:#475569;line-height:1.6">
+              Otomasi penyusunan Modul Ajar RPP, pembuatan bank soal HOTS/AKM berdasarkan capaian pembelajaran (CP), serta ringkasan perkembangan belajar siswa.
+            </p>
+          </div>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:var(--text-muted)">Powered by Gemini 3.8 Flash</span>
+            <button class="btn btn-primary btn-sm" onclick="quickLogin('GURU')">Coba AI →</button>
+          </div>
+        </div>
+
+        <!-- Feature 3: Digital Attendance (Span 4) -->
+        <div class="bento-card bento-span-4">
+          <div>
+            <div style="font-size:28px;margin-bottom:12px">⏱️</div>
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin-bottom:8px">
+              Presensi Digital Real-Time
+            </h3>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Pencatatan kehadiran harian siswa dan guru dengan notifikasi otomatis untuk orang tua, kalkulasi persentase absensi, dan grafik kehadiran bulanan.
+            </p>
+          </div>
+          <div style="margin-top:16px;font-size:12px;color:var(--text-muted)">
+            Tingkat kehadiran siswa bulan ini: <strong style="color:var(--success)">98.4%</strong>
+          </div>
+        </div>
+
+        <!-- Feature 4: CBT Online Testing (Span 4) -->
+        <div class="bento-card bento-span-4">
+          <div>
+            <div style="font-size:28px;margin-bottom:12px">💻</div>
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin-bottom:8px">
+              Computer-Based Test (CBT)
+            </h3>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Ujian harian, PTS, dan PAS digital dengan pengacak soal, pengatur durasi pengerjaan, anti-curang, dan koreksi nilai instan.
+            </p>
+          </div>
+          <div style="margin-top:16px;font-size:12px;color:var(--text-muted)">
+            Koreksi otomatis instan tanpa kertas.
+          </div>
+        </div>
+
+        <!-- Feature 5: Administration & Documents (Span 4) -->
+        <div class="bento-card bento-span-4">
+          <div>
+            <div style="font-size:28px;margin-bottom:12px">📁</div>
+            <h3 style="font-size:18px;font-weight:700;color:#0f172a;margin-bottom:8px">
+              Persuratan & Tata Usaha
+            </h3>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Buku agenda surat masuk/keluar, penerbitan surat aktif sekolah ber-QR verifikasi, arsip kurikulum, dan manajemen inventaris sarpras.
+            </p>
+          </div>
+          <div style="margin-top:16px;font-size:12px;color:var(--text-muted)">
+            Sesuai regulasi tata naskah dinas resmi.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Six Ecosystem Roles Section -->
+    <section id="peran" style="margin-top:72px">
+      <div style="text-align:center;max-width:700px;margin:0 auto">
+        <div style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px">
+          Sinergi Warga Sekolah
+        </div>
+        <h2 style="font-size:30px;font-weight:800;color:#0f172a;margin-top:4px">
+          Enam Hak Akses & Peran Ekosistem
+        </h2>
+        <p style="color:var(--text-muted);font-size:15px;margin-top:8px">
+          Setiap peran memiliki antarmuka khusus yang disesuaikan dengan tanggung jawab operasionalnya.
+        </p>
+      </div>
+
+      <div class="role-grid">
+        <!-- Super Admin -->
+        <div class="role-item">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:28px">👑</span>
+              <span class="badge badge-primary">Super Admin</span>
+            </div>
+            <h3 style="font-size:18px;font-weight:800;color:#0f172a">M. Fadillah, S.Kom</h3>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">SUPER_ADMIN · Full Control</div>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Konfigurasi master sistem, manajemen seluruh akun pengguna, audit security log, dan pengaturan backup data database.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%" onclick="quickLogin('SUPER_ADMIN')">
+            Uji Persona Super Admin →
+          </button>
+        </div>
+
+        <!-- Admin Sekolah -->
+        <div class="role-item">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:28px">💻</span>
+              <span class="badge badge-primary">Admin Tata Usaha</span>
+            </div>
+            <h3 style="font-size:18px;font-weight:800;color:#0f172a">Siti Rahmawati, A.Md</h3>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">ADMIN · Operator Sekolah</div>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Pengelolaan biodata siswa, data GTK pendidik, rombongan belajar (rombel), mata pelajaran, dan nomor surat dinas.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%" onclick="quickLogin('ADMIN')">
+            Uji Persona Admin Tata Usaha →
+          </button>
+        </div>
+
+        <!-- Kepala Sekolah -->
+        <div class="role-item">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:28px">🏛️</span>
+              <span class="badge badge-success">Kepala Sekolah</span>
+            </div>
+            <h3 style="font-size:18px;font-weight:800;color:#0f172a">Dra. Hj. Nurjanah, M.Pd.</h3>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">KEPALA_SEKOLAH · Eksekutif</div>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Monitoring mutu pembelajaran, rekapitulasi kehadiran sekolah, evaluasi kinerja guru, dan persetujuan pengesahan e-raport.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%" onclick="quickLogin('KEPALA_SEKOLAH')">
+            Uji Persona Kepala Sekolah →
+          </button>
+        </div>
+
+        <!-- Guru Pengajar -->
+        <div class="role-item">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:28px">👨‍🏫</span>
+              <span class="badge badge-primary">Wali Kelas 5A</span>
+            </div>
+            <h3 style="font-size:18px;font-weight:800;color:#0f172a">Budi Santoso, S.Pd</h3>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">GURU · Pendidik & Pembina</div>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Input presensi harian kelas, unggah materi tugas, penilaian formatif & sumatif, susun modul dengan AI, dan cetak raport kelas.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%" onclick="quickLogin('GURU')">
+            Uji Persona Guru (Pak Budi) →
+          </button>
+        </div>
+
+        <!-- Siswa -->
+        <div class="role-item">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:28px">👦</span>
+              <span class="badge badge-warning">Peserta Didik</span>
+            </div>
+            <h3 style="font-size:18px;font-weight:800;color:#0f172a">Ahmad Fauzi</h3>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">SISWA · NISN 0123456789</div>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Akses jadwal pelajaran, unduh modul LKPD, kumpulkan tugas online, kerjakan ujian CBT, dan lihat nilai raport mandiri.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%" onclick="quickLogin('SISWA')">
+            Uji Persona Siswa (Ahmad) →
+          </button>
+        </div>
+
+        <!-- Orang Tua -->
+        <div class="role-item">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <span style="font-size:28px">👨</span>
+              <span class="badge badge-warning">Wali Murid</span>
+            </div>
+            <h3 style="font-size:18px;font-weight:800;color:#0f172a">H. Hendra Gunawan</h3>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">ORANG_TUA · Wali Ahmad Fauzi</div>
+            <p style="font-size:13px;color:#475569;line-height:1.6">
+              Transparansi pantau kehadiran ananda, rekap nilai ujian harian, evaluasi raport, dan konsultasi interaktif dengan wali kelas.
+            </p>
+          </div>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%" onclick="quickLogin('ORANG_TUA')">
+            Uji Persona Orang Tua (Pak Hendra) →
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 7. Refined Production Footer -->
+  <footer style="background:#0f172a;color:#94a3b8;padding:48px 24px 32px;border-top:1px solid #1e293b;margin-top:40px">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:32px;margin-bottom:32px">
+      <div>
+        <div style="font-size:18px;font-weight:800;color:#ffffff;margin-bottom:8px">MUARAVERSA</div>
+        <p style="font-size:13px;line-height:1.6;color:#94a3b8">
+          Platform Digital Ekosistem Sekolah Terpadu SDN Muarasari 1 Kota Bogor. Mengintegrasikan teknologi pembelajaran modern, manajemen tata usaha, dan kecerdasan buatan.
+        </p>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#ffffff;margin-bottom:12px">Navigasi Utama</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+          <a href="dashboard.html" style="color:#cbd5e1">Portal Ekosistem Terpadu</a>
+          <a href="login.html" style="color:#cbd5e1">Login Kredensial Pengguna</a>
+          <a href="/admin/dashboard.html" style="color:#cbd5e1">Panel Administrasi Master</a>
+          <a href="generator.html" style="color:#cbd5e1">Generator Surat & Laporan</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#ffffff;margin-bottom:12px">Kontak & Alamat</div>
+        <div style="font-size:13px;line-height:1.6;color:#94a3b8">
+          Jl. Muarasari No. 45, Bogor Selatan, Kota Bogor, Jawa Barat 16137<br>
+          Telepon: 0251-8321456<br>
+          Email: sdn.muarasari1@sch.id
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding-top:24px;border-top:1px solid #1e293b;text-align:center;font-size:12px;color:#64748b">
+      MUARAVERSA © 2026 SDN Muarasari 1. Platform Terpadu Kurikulum Merdeka Berbasis Cloud & AI.
+    </div>
+  </footer>
+
+  <!-- Script for Quick Persona Switching -->
+  <script>
+    async function quickLogin(role) {
+      try {
+        const res = await fetch('/api/auth/switch-demo-role', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role })
+        });
+        const data = await res.json();
+        if (data && (data.token || data.jwt)) {
+          if (data.token) localStorage.setItem('muaraversa_token', data.token);
+          if (data.jwt) localStorage.setItem('muaraversa_jwt', data.jwt);
+          if (data.user) localStorage.setItem('muaraversa_user', JSON.stringify(data.user));
+          window.location.href = 'dashboard.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
+      } catch (err) {
+        console.error('Quick login error:', err);
+        window.location.href = 'dashboard.html';
+      }
+    }
+  </script>
 </body>
 </html>

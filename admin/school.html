@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Sekolah - Muaraversa Admin</title>
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+<div class="container">
+<header class="admin-header">
+<div>
+<h1>Profil Sekolah</h1>
+<p>Kelola data identitas dan informasi sekolah</p>
+</div>
+<div class="admin-actions">
+<span id="admin-status">Admin Aktif</span>
+<button type="button" onclick="logoutAdmin()">Logout</button>
+</div>
+</header>
+
+<nav class="admin-nav" aria-label="Navigasi Admin">
+<a href="dashboard.html">Dashboard</a>
+<a href="teachers.html">Guru</a>
+<a href="students.html">Siswa</a>
+<a href="classes.html">Kelas</a>
+<a class="active" href="school.html">Sekolah</a>
+</nav>
+
+<main>
+<form id="schoolForm">
+<label for="name"><strong>Nama Sekolah</strong></label>
+<input id="name" placeholder="Nama Sekolah" required>
+
+<label for="address" style="display:block;margin-top:12px"><strong>Alamat Sekolah</strong></label>
+<input id="address" placeholder="Alamat Sekolah" required>
+
+<label for="phone" style="display:block;margin-top:12px"><strong>Nomor Telepon</strong></label>
+<input id="phone" placeholder="Nomor Telepon">
+
+<button type="submit" style="margin-top:16px">Simpan Profil Sekolah</button>
+<p id="schoolMessage" style="margin-top:12px;font-weight:bold;color:#2563eb"></p>
+</form>
+</main>
+</div>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/school.js"></script>
+</body>
+</html>

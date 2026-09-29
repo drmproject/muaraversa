@@ -8,7 +8,24 @@
 </head>
 <body>
 <div class="container">
+<header class="admin-header">
+<div>
 <h1>Data Siswa</h1>
+<p>Kelola data siswa dan rombongan belajar</p>
+</div>
+<div class="admin-actions">
+<span id="admin-status">Admin Aktif</span>
+<button type="button" onclick="logoutAdmin()">Logout</button>
+</div>
+</header>
+
+<nav class="admin-nav" aria-label="Navigasi Admin">
+<a href="dashboard.html">Dashboard</a>
+<a href="teachers.html">Guru</a>
+<a class="active" href="students.html">Siswa</a>
+<a href="classes.html">Kelas</a>
+<a href="school.html">Sekolah</a>
+</nav>
 
 <section class="student-form">
 <input id="name" type="text" placeholder="Nama siswa" autocomplete="off">
@@ -38,6 +55,7 @@
 </table>
 </div>
 
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/students.js"></script>
 </body>
 </html>

@@ -1,12 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Data Kelas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Kelas - Muaraversa Admin</title>
 <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
+<div class="container">
+<header class="admin-header">
+<div>
 <h1>Data Kelas</h1>
+<p>Kelola data rombel dan wali kelas</p>
+</div>
+<div class="admin-actions">
+<span id="admin-status">Admin Aktif</span>
+<button type="button" onclick="logoutAdmin()">Logout</button>
+</div>
+</header>
+
+<nav class="admin-nav" aria-label="Navigasi Admin">
+<a href="dashboard.html">Dashboard</a>
+<a href="teachers.html">Guru</a>
+<a href="students.html">Siswa</a>
+<a class="active" href="classes.html">Kelas</a>
+<a href="school.html">Sekolah</a>
+</nav>
+
 <form id="classForm">
 <input type="hidden" id="class_id">
 <input id="name" placeholder="Nama Kelas" required>
@@ -16,10 +36,14 @@
 <button type="submit">Simpan Kelas</button>
 <button type="button" onclick="resetClassForm()">Batal</button>
 </form>
-<table border="1">
+
+<table>
 <thead><tr><th>No</th><th>Kelas</th><th>Wali Kelas</th><th>Aksi</th></tr></thead>
 <tbody id="classList"></tbody>
 </table>
+</div>
+
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/classes.js"></script>
 </body>
 </html>

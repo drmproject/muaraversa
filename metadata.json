@@ -1,0 +1,6 @@
+{
+  "name": "Muaraversa",
+  "description": "Digital School Platform - Sistem Manajemen Sekolah Digital untuk data guru, siswa, kelas, dan profil sekolah.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

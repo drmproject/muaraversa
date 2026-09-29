@@ -10,7 +10,8 @@ import {
 import {
     login,
     me,
-    logout
+    logout,
+    switchDemoRole
 } from "./routes/auth.js";
 
 import {
@@ -67,9 +68,10 @@ export default {
         if (url.pathname === "/api") return jsonResponse(await apiInfo(env.DB));
         if (url.pathname === "/api/database-test") return jsonResponse(await databaseTest(env.DB));
 
-        if (url.pathname === "/api/login" && request.method === "POST") return await login(request, env.DB);
-        if (url.pathname === "/api/me" && request.method === "GET") return await me(request, env.DB);
-        if (url.pathname === "/api/logout" && request.method === "POST") return await logout(request, env.DB);
+        if ((url.pathname === "/api/login" || url.pathname === "/api/auth/login") && request.method === "POST") return await login(request, env.DB);
+        if ((url.pathname === "/api/me" || url.pathname === "/api/auth/me") && request.method === "GET") return await me(request, env.DB);
+        if ((url.pathname === "/api/logout" || url.pathname === "/api/auth/logout") && request.method === "POST") return await logout(request, env.DB);
+        if ((url.pathname === "/api/switch-demo-role" || url.pathname === "/api/auth/switch-demo-role") && request.method === "POST") return await switchDemoRole(request, env.DB);
 
         const user = await getUser(request, env.DB);
 

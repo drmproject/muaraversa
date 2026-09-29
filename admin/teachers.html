@@ -8,7 +8,24 @@
 </head>
 <body>
 <div class="container">
+<header class="admin-header">
+<div>
 <h1>Data Guru</h1>
+<p>Kelola data pengajar dan mata pelajaran</p>
+</div>
+<div class="admin-actions">
+<span id="admin-status">Admin Aktif</span>
+<button type="button" onclick="logoutAdmin()">Logout</button>
+</div>
+</header>
+
+<nav class="admin-nav" aria-label="Navigasi Admin">
+<a href="dashboard.html">Dashboard</a>
+<a class="active" href="teachers.html">Guru</a>
+<a href="students.html">Siswa</a>
+<a href="classes.html">Kelas</a>
+<a href="school.html">Sekolah</a>
+</nav>
 
 <form id="teacherForm">
 <input id="name" placeholder="Nama Guru" required>
@@ -29,6 +46,7 @@
 </table>
 </div>
 
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/teachers.js"></script>
 </body>
 </html>

@@ -26,5 +26,13 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
         showMessage("Frontend initialized");
+        checkAPI();
+
+        const startBtn = document.getElementById("startBtn") || document.querySelector("button");
+        if (startBtn) {
+            startBtn.addEventListener("click", () => {
+                window.location.href = "login.html";
+            });
+        }
     }
 );

@@ -1,19 +1,43 @@
-*{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f4f6f8;margin:0;color:#1f2937;line-height:1.5}
-.container{padding:24px;max-width:1200px;margin:auto}
-h1{margin-bottom:24px}
-.admin-header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
-.admin-nav{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
-.admin-nav a{padding:10px 14px;background:#fff;border-radius:8px;text-decoration:none;color:#2563eb;font-weight:bold}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.card h3{margin:0;color:#475569}
-.card p{font-size:32px;font-weight:bold;margin:10px 0;color:#0f172a}
-form{background:#fff;padding:24px;border-radius:12px;max-width:420px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-input,select,button{width:100%;padding:12px;margin-top:12px;border-radius:8px;font-size:14px}
-input,select{border:1px solid #cbd5e1;background:#fff}
-button{border:0;background:#2563eb;color:#fff;font-weight:bold;cursor:pointer}
-button:hover{opacity:.9}
-table{width:100%;border-collapse:collapse;background:#fff;margin-top:24px;border-radius:10px;overflow:hidden}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #e5e7eb}
-@media(max-width:600px){.container{padding:16px}h1{font-size:24px}.admin-header{flex-direction:column;align-items:stretch}table{display:block;overflow-x:auto}}
+@import url("/frontend/css/style.css");
+
+/* Admin Specific Tweaks */
+.admin-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.admin-nav a {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: #334155;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.admin-nav a.active, .admin-nav a:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary-border);
+}

@@ -1,0 +1,1073 @@
+{
+  "school": {
+    "id": 1,
+    "name": "SDN Muarasari 1",
+    "school_name": "SDN Muarasari 1",
+    "npsn": "20219876",
+    "address": "Jl. Muarasari No. 45",
+    "district": "Bogor Selatan",
+    "city": "Kota Bogor",
+    "province": "Jawa Barat",
+    "postal_code": "16137",
+    "phone": "0251-8321456",
+    "email": "sdn.muarasari1@sch.id",
+    "website": "https://muarasari1.sch.id",
+    "principal_name": "Dra. Hj. Nurjanah, M.Pd.",
+    "principal_nip": "196805121992032001",
+    "accreditation": "A",
+    "created_at": "2026-09-29T13:10:33.478Z"
+  },
+  "academic_years": [
+    {
+      "id": 1,
+      "year_name": "2024/2025",
+      "semester": "Ganjil",
+      "is_active": 1
+    },
+    {
+      "id": 2,
+      "year_name": "2024/2025",
+      "semester": "Genap",
+      "is_active": 0
+    }
+  ],
+  "subjects": [
+    {
+      "id": 1,
+      "code": "MAT-01",
+      "name": "Matematika",
+      "category": "Wajib",
+      "kkm": 75
+    },
+    {
+      "id": 2,
+      "code": "IND-01",
+      "name": "Bahasa Indonesia",
+      "category": "Wajib",
+      "kkm": 75
+    },
+    {
+      "id": 3,
+      "code": "IPA-01",
+      "name": "Ilmu Pengetahuan Alam (IPAS)",
+      "category": "Wajib",
+      "kkm": 75
+    },
+    {
+      "id": 4,
+      "code": "IPS-01",
+      "name": "Ilmu Pengetahuan Sosial",
+      "category": "Wajib",
+      "kkm": 75
+    },
+    {
+      "id": 5,
+      "code": "PAI-01",
+      "name": "Pendidikan Agama Islam & Budi Pekerti",
+      "category": "Wajib",
+      "kkm": 80
+    },
+    {
+      "id": 6,
+      "code": "TIK-01",
+      "name": "Informatika & Literasi Digital",
+      "category": "Pilihan",
+      "kkm": 75
+    },
+    {
+      "id": 7,
+      "code": "PJOK-01",
+      "name": "Pendidikan Jasmani & Olahraga",
+      "category": "Wajib",
+      "kkm": 75
+    },
+    {
+      "id": 8,
+      "code": "SBK-01",
+      "name": "Seni Budaya & Prakarya",
+      "category": "Wajib",
+      "kkm": 75
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "superadmin",
+      "password": "change_this_password",
+      "name": "M. Fadillah, S.Kom",
+      "role": "SUPER_ADMIN",
+      "status": "active",
+      "email": "superadmin@muaraversa.sch.id",
+      "phone": "081234567801",
+      "avatar": "👨‍💼",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 2,
+      "username": "admin",
+      "password": "change_this_password",
+      "name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "status": "active",
+      "email": "admin@muaraversa.sch.id",
+      "phone": "081234567802",
+      "avatar": "👩‍💻",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 3,
+      "username": "kepsek",
+      "password": "change_this_password",
+      "name": "Dra. Hj. Nurjanah, M.Pd.",
+      "role": "KEPALA_SEKOLAH",
+      "status": "active",
+      "email": "kepsek@muaraversa.sch.id",
+      "phone": "081234567803",
+      "avatar": "👩‍🏫",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 4,
+      "username": "guru1",
+      "password": "change_this_password",
+      "name": "Budi Santoso, S.Pd",
+      "role": "GURU",
+      "status": "active",
+      "email": "budi.santoso@muaraversa.sch.id",
+      "phone": "081234567804",
+      "avatar": "👨‍🏫",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 5,
+      "username": "guru2",
+      "password": "change_this_password",
+      "name": "Siti Aminah, M.Pd",
+      "role": "GURU",
+      "status": "active",
+      "email": "siti.aminah@muaraversa.sch.id",
+      "phone": "081234567805",
+      "avatar": "👩‍🏫",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 6,
+      "username": "guru3",
+      "password": "change_this_password",
+      "name": "Asep Saepudin, S.Kom",
+      "role": "GURU",
+      "status": "active",
+      "email": "asep.saepudin@muaraversa.sch.id",
+      "phone": "081234567806",
+      "avatar": "👨‍💻",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 7,
+      "username": "siswa1",
+      "password": "change_this_password",
+      "name": "Ahmad Fauzi",
+      "role": "SISWA",
+      "status": "active",
+      "email": "ahmad.fauzi@siswa.muaraversa.sch.id",
+      "phone": "081234567807",
+      "avatar": "👦",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 8,
+      "username": "siswa2",
+      "password": "change_this_password",
+      "name": "Nurul Hidayah",
+      "role": "SISWA",
+      "status": "active",
+      "email": "nurul.hidayah@siswa.muaraversa.sch.id",
+      "phone": "081234567808",
+      "avatar": "👧",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 9,
+      "username": "siswa3",
+      "password": "change_this_password",
+      "name": "Rizky Pratama",
+      "role": "SISWA",
+      "status": "active",
+      "email": "rizky.pratama@siswa.muaraversa.sch.id",
+      "phone": "081234567809",
+      "avatar": "👦",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 10,
+      "username": "ortu1",
+      "password": "change_this_password",
+      "name": "H. Hendra Gunawan",
+      "role": "ORANG_TUA",
+      "status": "active",
+      "email": "hendra.gunawan@gmail.com",
+      "phone": "081234567810",
+      "avatar": "👨",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "teachers": [
+    {
+      "id": 1,
+      "user_id": 4,
+      "nip": "198501012010011001",
+      "name": "Budi Santoso, S.Pd",
+      "subject": "Matematika",
+      "subject_id": 1,
+      "phone": "081234567804",
+      "email": "budi.santoso@muaraversa.sch.id",
+      "status": "PNS",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 2,
+      "user_id": 5,
+      "nip": "198803152012022002",
+      "name": "Siti Aminah, M.Pd",
+      "subject": "Bahasa Indonesia",
+      "subject_id": 2,
+      "phone": "081234567805",
+      "email": "siti.aminah@muaraversa.sch.id",
+      "status": "PNS",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 3,
+      "user_id": 6,
+      "nip": "199004202014031003",
+      "name": "Asep Saepudin, S.Kom",
+      "subject": "Informatika & Literasi Digital",
+      "subject_id": 6,
+      "phone": "081234567806",
+      "email": "asep.saepudin@muaraversa.sch.id",
+      "status": "PPPK",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "school_id": 1,
+      "name": "Kelas 1-A",
+      "class_name": "Kelas 1-A",
+      "grade": "1",
+      "tingkat": "1",
+      "room": "Ruang 101",
+      "teacher_id": 1,
+      "teacher": "Budi Santoso, S.Pd",
+      "teacher_name": "Budi Santoso, S.Pd",
+      "wali_kelas": "Budi Santoso, S.Pd",
+      "academic_year_id": 1
+    },
+    {
+      "id": 2,
+      "school_id": 1,
+      "name": "Kelas 1-B",
+      "class_name": "Kelas 1-B",
+      "grade": "1",
+      "tingkat": "1",
+      "room": "Ruang 102",
+      "teacher_id": 2,
+      "teacher": "Siti Aminah, M.Pd",
+      "teacher_name": "Siti Aminah, M.Pd",
+      "wali_kelas": "Siti Aminah, M.Pd",
+      "academic_year_id": 1
+    },
+    {
+      "id": 3,
+      "school_id": 1,
+      "name": "Kelas 2-A",
+      "class_name": "Kelas 2-A",
+      "grade": "2",
+      "tingkat": "2",
+      "room": "Ruang 201",
+      "teacher_id": 3,
+      "teacher": "Asep Saepudin, S.Kom",
+      "teacher_name": "Asep Saepudin, S.Kom",
+      "wali_kelas": "Asep Saepudin, S.Kom",
+      "academic_year_id": 1
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "user_id": 7,
+      "nis": "1001",
+      "nisn": "0087654321",
+      "name": "Ahmad Fauzi",
+      "gender": "L",
+      "birth_place": "Bogor",
+      "birth_date": "2016-04-10",
+      "class_id": 1,
+      "class": "Kelas 1-A",
+      "parent_id": 10,
+      "parent_name": "H. Hendra Gunawan",
+      "address": "Jl. Raya Tajur No. 12, Bogor",
+      "status": "Aktif",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 2,
+      "user_id": 8,
+      "nis": "1002",
+      "nisn": "0087654322",
+      "name": "Nurul Hidayah",
+      "gender": "P",
+      "birth_place": "Bogor",
+      "birth_date": "2016-08-22",
+      "class_id": 1,
+      "class": "Kelas 1-A",
+      "parent_id": null,
+      "parent_name": "Bpk. Ridwan",
+      "address": "Jl. Ciawi Sejahtera No. 5",
+      "status": "Aktif",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 3,
+      "user_id": 9,
+      "nis": "1003",
+      "nisn": "0087654323",
+      "name": "Rizky Pratama",
+      "gender": "L",
+      "birth_place": "Bogor",
+      "birth_date": "2015-11-05",
+      "class_id": 3,
+      "class": "Kelas 2-A",
+      "parent_id": null,
+      "parent_name": "Ibu Ratna",
+      "address": "Jl. Pajajaran Indah No. 18",
+      "status": "Aktif",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "schedules": [
+    {
+      "id": 1,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 1,
+      "subject_name": "Matematika",
+      "teacher_id": 1,
+      "teacher_name": "Budi Santoso, S.Pd",
+      "day": "Senin",
+      "time_start": "07:30",
+      "time_end": "09:00",
+      "room": "Ruang 101"
+    },
+    {
+      "id": 2,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 2,
+      "subject_name": "Bahasa Indonesia",
+      "teacher_id": 2,
+      "teacher_name": "Siti Aminah, M.Pd",
+      "day": "Senin",
+      "time_start": "09:15",
+      "time_end": "10:45",
+      "room": "Ruang 101"
+    },
+    {
+      "id": 3,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 3,
+      "subject_name": "Ilmu Pengetahuan Alam (IPAS)",
+      "teacher_id": 1,
+      "teacher_name": "Budi Santoso, S.Pd",
+      "day": "Selasa",
+      "time_start": "07:30",
+      "time_end": "09:00",
+      "room": "Lab Sains"
+    },
+    {
+      "id": 4,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 6,
+      "subject_name": "Informatika & Literasi Digital",
+      "teacher_id": 3,
+      "teacher_name": "Asep Saepudin, S.Kom",
+      "day": "Rabu",
+      "time_start": "08:00",
+      "time_end": "09:30",
+      "room": "Lab Komputer"
+    }
+  ],
+  "materials": [
+    {
+      "id": 1,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 1,
+      "subject_name": "Matematika",
+      "teacher_id": 1,
+      "teacher_name": "Budi Santoso, S.Pd",
+      "title": "Modul Ajar: Bilangan Cacah 1 sampai 100",
+      "type": "Modul",
+      "description": "Pengenalan konsep nilai tempat puluhan dan satuan serta representasi konkret visual.",
+      "file_url": "https://cdn.example.org/modul-matematika-1.pdf",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 2,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 2,
+      "subject_name": "Bahasa Indonesia",
+      "teacher_id": 2,
+      "teacher_name": "Siti Aminah, M.Pd",
+      "title": "LKPD Interaktif: Membaca Suku Kata Bergambar",
+      "type": "LKPD",
+      "description": "Lembar Kerja Peserta Didik untuk penguatan literasi awal suku kata terbuka dan tertutup.",
+      "file_url": "https://cdn.example.org/lkpd-bahasa-1.pdf",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 3,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 6,
+      "subject_name": "Informatika & Literasi Digital",
+      "teacher_id": 3,
+      "teacher_name": "Asep Saepudin, S.Kom",
+      "title": "Modul Interaktif: Etika Berinternet dan Mouse Typing",
+      "type": "Modul",
+      "description": "Panduan ramah anak untuk mengenal tombol keyboard, kursor mouse, dan keamanan digital dasar.",
+      "file_url": "https://cdn.example.org/modul-tik-dasar.pdf",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "assignments": [
+    {
+      "id": 1,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 1,
+      "subject_name": "Matematika",
+      "teacher_id": 1,
+      "title": "Latihan Operasi Hitung Penjumlahan 1-20",
+      "description": "Selesaikan 10 soal cerita penjumlahan bertingkat dan jelaskan cara menghitungnya.",
+      "deadline": "2026-10-15T23:59:00Z",
+      "max_score": 100,
+      "created_at": "2026-09-29T13:10:33.478Z"
+    },
+    {
+      "id": 2,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 2,
+      "subject_name": "Bahasa Indonesia",
+      "teacher_id": 2,
+      "title": "Menceritakan Kembali Dongeng Anak",
+      "description": "Baca dongeng Kancil & Petani, lalu tuliskan atau rekam 3 nilai budi pekerti yang didapatkan.",
+      "deadline": "2026-10-18T23:59:00Z",
+      "max_score": 100,
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "submissions": [
+    {
+      "id": 1,
+      "assignment_id": 1,
+      "assignment_title": "Latihan Operasi Hitung Penjumlahan 1-20",
+      "student_id": 1,
+      "student_name": "Ahmad Fauzi",
+      "submission_text": "Sudah saya kerjakan dengan metode garis bilangan dan semua 10 soal terjawab tuntas.",
+      "file_url": "https://cdn.example.org/jawaban-ahmad.pdf",
+      "score": 95,
+      "feedback": "Luar biasa Ahmad! Pemahaman konsep garis bilangan sangat jelas dan rapi.",
+      "submitted_at": "2026-09-28T09:00:00Z",
+      "graded_at": "2026-09-28T14:00:00Z"
+    }
+  ],
+  "quizzes": [
+    {
+      "id": 1,
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "subject_id": 1,
+      "subject_name": "Matematika",
+      "teacher_id": 1,
+      "title": "CBT Formatif Matematika 1: Penjumlahan & Pengurangan",
+      "duration_minutes": 30,
+      "passing_grade": 75,
+      "is_active": 1,
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "quiz_id": 1,
+      "question_text": "Berapakah hasil dari 14 + 18?",
+      "option_a": "30",
+      "option_b": "32",
+      "option_c": "34",
+      "option_d": "36",
+      "correct_answer": "B",
+      "explanation": "14 + 18 = 32."
+    },
+    {
+      "id": 2,
+      "quiz_id": 1,
+      "question_text": "Ibu membeli 25 butir telur di pasar, saat diperjalanan pecah 6 butir. Berapakah sisa telur ibu yang utuh?",
+      "option_a": "18 butir",
+      "option_b": "19 butir",
+      "option_c": "20 butir",
+      "option_d": "21 butir",
+      "correct_answer": "B",
+      "explanation": "25 dikurangi 6 adalah 19."
+    },
+    {
+      "id": 3,
+      "quiz_id": 1,
+      "question_text": "Angka 7 pada bilangan 75 menempati nilai tempat...",
+      "option_a": "Satuan",
+      "option_b": "Puluhan",
+      "option_c": "Ratusan",
+      "option_d": "Ribuan",
+      "correct_answer": "B",
+      "explanation": "Pada bilangan 75, angka 7 bernilai 70 (puluhan) dan angka 5 bernilai 5 (satuan)."
+    },
+    {
+      "id": 4,
+      "quiz_id": 1,
+      "question_text": "Pak Guru membawa 15 buku cerita ke ruang perpustakaan. 7 buku dipinjam oleh siswa kelas 1. Berapakah sisa buku cerita yang masih ada di meja perpustakaan?",
+      "option_a": "7 buku",
+      "option_b": "8 buku",
+      "option_c": "9 buku",
+      "option_d": "10 buku",
+      "correct_answer": "B",
+      "explanation": "Operasi pengurangan: 15 - 7 = 8 buku tersisa."
+    },
+    {
+      "id": 5,
+      "quiz_id": 1,
+      "question_text": "Di halaman sekolah terdapat 12 pohon cemara dan 8 pohon mangga. Berapakah jumlah keseluruhan pohon tersebut?",
+      "option_a": "18 pohon",
+      "option_b": "19 pohon",
+      "option_c": "20 pohon",
+      "option_d": "21 pohon",
+      "correct_answer": "C",
+      "explanation": "Operasi penjumlahan: 12 + 8 = 20 pohon."
+    },
+    {
+      "id": 6,
+      "quiz_id": 1,
+      "question_text": "Manakah urutan bilangan dari yang terkecil hingga terbesar berikut ini yang paling tepat?",
+      "option_a": "11, 14, 12, 19",
+      "option_b": "10, 13, 16, 20",
+      "option_c": "20, 15, 12, 10",
+      "option_d": "15, 12, 17, 18",
+      "correct_answer": "B",
+      "explanation": "Pilihan B berurutan naik dari 10, 13, 16, ke 20 secara benar."
+    }
+  ],
+  "quiz_results": [
+    {
+      "id": 1,
+      "quiz_id": 1,
+      "quiz_title": "CBT Formatif Matematika 1: Penjumlahan & Pengurangan",
+      "student_id": 1,
+      "student_name": "Ahmad Fauzi",
+      "score": 100,
+      "total_correct": 3,
+      "total_questions": 3,
+      "passed": true,
+      "completed_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "grades": [
+    {
+      "id": 1,
+      "student_id": 1,
+      "student_name": "Ahmad Fauzi",
+      "subject_id": 1,
+      "subject_name": "Matematika",
+      "academic_year_id": 1,
+      "tugas_avg": 92.5,
+      "uts": 90,
+      "uas": 94,
+      "final_grade": 92.2,
+      "predicate": "A",
+      "notes": "Sangat menguasai konsep operasi hitung dan penalaran logis matematika."
+    },
+    {
+      "id": 1,
+      "student_id": 1,
+      "student_name": "Ahmad Fauzi",
+      "subject_id": 2,
+      "subject_name": "Bahasa Indonesia",
+      "academic_year_id": 1,
+      "tugas_avg": 88,
+      "uts": 85,
+      "uas": 90,
+      "final_grade": 87.7,
+      "predicate": "A",
+      "notes": "Lancar memahami teks deskriptif dan aktif mengungkapkan gagasan dalam diskusi."
+    },
+    {
+      "id": 3,
+      "student_id": 1,
+      "student_name": "Ahmad Fauzi",
+      "subject_id": 6,
+      "subject_name": "Informatika & Literasi Digital",
+      "academic_year_id": 1,
+      "tugas_avg": 95,
+      "uts": 92,
+      "uas": 96,
+      "final_grade": 94.4,
+      "predicate": "A",
+      "notes": "Sangat tangkas menggunakan perangkat lunak pembelajaran edukatif."
+    }
+  ],
+  "student_attendance": [
+    {
+      "id": 1,
+      "student_id": 1,
+      "student_name": "Ahmad Fauzi",
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "date": "2026-09-29",
+      "status": "Hadir",
+      "note": "Tepat waktu jam 07:00"
+    },
+    {
+      "id": 2,
+      "student_id": 2,
+      "student_name": "Nurul Hidayah",
+      "class_id": 1,
+      "class_name": "Kelas 1-A",
+      "date": "2026-09-29",
+      "status": "Hadir",
+      "note": "Tepat waktu jam 07:05"
+    },
+    {
+      "id": 3,
+      "student_id": 3,
+      "student_name": "Rizky Pratama",
+      "class_id": 3,
+      "class_name": "Kelas 2-A",
+      "date": "2026-09-29",
+      "status": "Sakit",
+      "note": "Izin istirahat demam, surat terlampir"
+    }
+  ],
+  "teacher_attendance": [
+    {
+      "id": 1,
+      "teacher_id": 1,
+      "teacher_name": "Budi Santoso, S.Pd",
+      "date": "2026-09-29",
+      "check_in": "06:45",
+      "check_out": "14:30",
+      "status": "Hadir",
+      "note": "Mengajar tepat waktu"
+    },
+    {
+      "id": 2,
+      "teacher_id": 2,
+      "teacher_name": "Siti Aminah, M.Pd",
+      "date": "2026-09-29",
+      "check_in": "06:50",
+      "check_out": "14:30",
+      "status": "Hadir",
+      "note": "Piket pagi dan mengajar kelas 1"
+    },
+    {
+      "id": 3,
+      "teacher_id": 3,
+      "teacher_name": "Asep Saepudin, S.Kom",
+      "date": "2026-09-29",
+      "check_in": "07:00",
+      "check_out": "14:30",
+      "status": "Hadir",
+      "note": "Pengawasan Lab Komputer"
+    }
+  ],
+  "announcements": [
+    {
+      "id": 1,
+      "title": "Pelaksanaan Penilaian Tengah Semester (PTS) Ganjil TA 2026/2027",
+      "content": "Diberitahukan kepada seluruh dewan guru, siswa, dan orang tua wali murid bahwa kegiatan PTS Ganjil akan diselenggarakan mulai tanggal 12 Oktober 2026. Mohon para siswa mempersiapkan materi yang telah dipelajari.",
+      "category": "Akademik",
+      "target_role": "ALL",
+      "author": "Dra. Hj. Nurjanah, M.Pd. (Kepala Sekolah)",
+      "created_at": "2026-09-25T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Sosialisasi Program Muaraversa Smart School Bersama Komite Sekolah",
+      "content": "Undangan silaturahmi akbar dan sosialisasi portal digital Muaraversa kepada seluruh orang tua siswa jenjang kelas 1 sampai kelas 6.",
+      "category": "Umum",
+      "target_role": "ORANG_TUA",
+      "author": "Siti Rahmawati, A.Md (Admin Sekolah)",
+      "created_at": "2026-09-28T10:00:00Z"
+    },
+    {
+      "id": 3,
+      "title": "Workshop Pemanfaatan AI Assistant Kurikulum Merdeka untuk Guru",
+      "content": "Kegiatan penguatan literasi digital dan pelatihan penyusunan Modul Ajar otomatis berbasis Muaraversa AI pada hari Kamis pukul 13:00 di Lab TIK.",
+      "category": "Kegiatan",
+      "target_role": "GURU",
+      "author": "M. Fadillah, S.Kom (Super Admin)",
+      "created_at": "2026-09-29T07:00:00Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "sender_id": 10,
+      "sender_name": "H. Hendra Gunawan (Orang Tua)",
+      "sender_role": "ORANG_TUA",
+      "recipient_id": 4,
+      "recipient_name": "Budi Santoso, S.Pd (Wali Kelas 1-A)",
+      "subject": "Konsultasi Belajar Berhitung Ahmad Fauzi",
+      "body": "Selamat siang Pak Budi. Alhamdulillah perkembangan berhitung Ahmad semakin bagus di rumah. Apakah ada materi tambahan atau buku bacaan yang direkomendasikan?",
+      "created_at": "2026-09-28T15:20:00Z"
+    },
+    {
+      "id": 2,
+      "sender_id": 4,
+      "sender_name": "Budi Santoso, S.Pd",
+      "sender_role": "GURU",
+      "recipient_id": 10,
+      "recipient_name": "H. Hendra Gunawan",
+      "subject": "Re: Konsultasi Belajar Berhitung Ahmad Fauzi",
+      "body": "Selamat siang Pak Hendra. Terima kasih atas pendampingan terbaik bapak di rumah. Ahmad sangat antusias dan teliti di kelas. Modul pengayaan berhitung sudah saya unggah di menu Materi Belajar portal siswa.",
+      "created_at": "2026-09-28T16:05:00Z"
+    }
+  ],
+  "letters": [
+    {
+      "id": 1,
+      "letter_number": "421.2/015/SD-MS1/IX/2026",
+      "type": "Keluar",
+      "title": "Surat Undangan Pelatihan Peningkatan Mutu Guru",
+      "sender_or_recipient": "Dinas Pendidikan Kota Bogor",
+      "letter_date": "2026-09-20",
+      "description": "Permohonan fasilitator workshop implementasi digital learning.",
+      "status": "Disetujui"
+    },
+    {
+      "id": 2,
+      "letter_number": "421.1/108/DISDIK/2026",
+      "type": "Masuk",
+      "title": "Surat Pemberitahuan Asesmen Nasional Berbasis Komputer (ANBK)",
+      "sender_or_recipient": "Kementerian Pendidikan & Kebudayaan",
+      "letter_date": "2026-09-22",
+      "description": "Jadwal gladi bersih dan penetapan lab komputer penguji.",
+      "status": "Diproses"
+    },
+    {
+      "id": 3,
+      "letter_number": "421.3/088/KET-AKTIF/2026",
+      "type": "Surat Keterangan",
+      "title": "Surat Keterangan Siswa Aktif a.n Ahmad Fauzi",
+      "sender_or_recipient": "Orang Tua Siswa (Keperluan Tunjangan Keluarga)",
+      "letter_date": "2026-09-25",
+      "description": "Menerangkan bahwa Ahmad Fauzi benar siswa aktif kelas 1-A.",
+      "status": "Disetujui"
+    }
+  ],
+  "archives": [
+    {
+      "id": 1,
+      "title": "Kurikulum Operasional Satuan Pendidikan (KOSP) 2026/2027",
+      "category": "Kurikulum",
+      "document_number": "SK-042/KOSP/2026",
+      "year": "2026",
+      "file_size": "4.2 MB",
+      "file_url": "https://cdn.example.org/KOSP-2026.pdf",
+      "uploaded_by": "Siti Rahmawati, A.Md"
+    },
+    {
+      "id": 2,
+      "title": "Sertifikat Akreditasi Sekolah Predikat A SDN Muarasari 1",
+      "category": "Akreditasi",
+      "document_number": "BAN-SM/982/2023",
+      "year": "2023-2028",
+      "file_size": "1.8 MB",
+      "file_url": "https://cdn.example.org/Akreditasi-A.pdf",
+      "uploaded_by": "Siti Rahmawati, A.Md"
+    },
+    {
+      "id": 3,
+      "title": "Rencana Kerja Anggaran Sekolah (RKAS) Tahun 2026",
+      "category": "Sarpras & Keuangan",
+      "document_number": "RKAS-2026-MS1",
+      "year": "2026",
+      "file_size": "3.1 MB",
+      "file_url": "https://cdn.example.org/RKAS-2026.pdf",
+      "uploaded_by": "M. Fadillah, S.Kom"
+    }
+  ],
+  "ai_lesson_plans": [
+    {
+      "id": 2,
+      "subject": "Matematika",
+      "grade": "Kelas 1",
+      "topic": "Penjumlahan 1-20",
+      "duration": "2 JP x 35 Menit",
+      "model_used": "gemini-3.8-flash",
+      "content": {
+        "capaian_pembelajaran": "Peserta didik mampu memahami konsep esensial Penjumlahan 1-20 pada mata pelajaran Matematika untuk Kelas 1 serta mampu menerapkannya dalam pemecahan masalah kontekstual nyata.",
+        "tujuan_pembelajaran": [
+          "Memahami konsep dasar dan terminologi Penjumlahan 1-20 secara mendalam.",
+          "Mengaplikasikan prosedur pemecahan masalah Penjumlahan 1-20 secara berkelompok.",
+          "Mengembangkan nalar kritis dan kemandirian dalam presentasi hasil karya."
+        ],
+        "profil_pelajar_pancasila": [
+          "Bernalar Kritis",
+          "Gotong Royong",
+          "Mandiri"
+        ],
+        "kegiatan_awal": "Guru menyapa hangat siswa, melakukan presensi digital Muaraversa, menyanyikan lagu nasional, dan mengaitkan materi Penjumlahan 1-20 dengan pengalaman sehari-hari siswa.",
+        "kegiatan_inti": "Guru menayangkan media pembelajaran kontekstual. Siswa dibagi ke dalam kelompok heterogen, menyelesaikan LKPD berdiferensiasi, melakukan diskusi aktif terbimbing, dan mempresentasikan hasil kerja di depan kelas.",
+        "kegiatan_penutup": "Guru bersama siswa menyimpulkan poin inti pelajaran, melaksanakan refleksi emosi belajar, kuis asesmen exit ticket, dan doa bersama.",
+        "asesmen": "Asesmen diagnostik awal melalui tanya-jawab, asesmen formatif unjuk kerja kelompok, dan asesmen sumatif kuis online Muaraversa CBT.",
+        "rekomendasi_media": "Benda konkret di lingkungan sekolah, LCD Proyektor, Kartu Bergambar, dan Platform Digital Muaraversa."
+      },
+      "created_at": "2026-09-29T13:10:49.261Z"
+    },
+    {
+      "id": 1,
+      "teacher_id": 1,
+      "subject": "Matematika",
+      "grade": "Kelas 1",
+      "topic": "Penjumlahan dan Pengurangan Bersusun Pendek",
+      "duration": "2 JP x 35 Menit",
+      "model_used": "gemini-3.8-flash",
+      "content": {
+        "capaian_pembelajaran": "Peserta didik mampu memahami operasi penjumlahan dan pengurangan sampai bilangan 20 serta menerapkannya dalam memecahkan masalah kontekstual sederhana.",
+        "tujuan_pembelajaran": [
+          "Siswa dapat menghitung penjumlahan 1-20 menggunakan benda konkret.",
+          "Siswa dapat menyelesaikan soal cerita sederhana secara kolaboratif.",
+          "Siswa menunjukkan profil pelajar Pancasila: Mandiri dan Bernalar Kritis."
+        ],
+        "kegiatan_awal": "Orientasi apersepsi dengan bernyanyi lagu \"Satu Ditambah Satu\" dan ice-breaking tepuk angka.",
+        "kegiatan_inti": "Eksplorasi berpasangan menggunakan stik es krim, pengerjaan LKPD visual bertingkat, dan presentasi hasil kelompok kecil.",
+        "kegiatan_penutup": "Refleksi perasaan belajar menggunakan emotikon kartu dan kuis cepat exit-ticket 2 butir.",
+        "asesmen": "Asesmen formatif unjuk kerja saat manipulasi objek konkret dan asesmen diagnostik di akhir sesi."
+      },
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ],
+  "ai_question_packs": [],
+  "audit_logs": [
+    {
+      "id": 23,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGIN",
+      "detail": "User admin (ADMIN) berhasil masuk ke sistem.",
+      "created_at": "2026-09-29T13:37:50.113Z"
+    },
+    {
+      "id": 22,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Siti Rahmawati, A.Md (ADMIN)",
+      "created_at": "2026-09-29T13:34:42.826Z"
+    },
+    {
+      "id": 21,
+      "user_id": 1,
+      "user_name": "M. Fadillah, S.Kom",
+      "role": "SUPER_ADMIN",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: M. Fadillah, S.Kom (SUPER_ADMIN)",
+      "created_at": "2026-09-29T13:31:26.394Z"
+    },
+    {
+      "id": 20,
+      "user_id": 10,
+      "user_name": "H. Hendra Gunawan",
+      "role": "ORANG_TUA",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: H. Hendra Gunawan (ORANG_TUA)",
+      "created_at": "2026-09-29T13:30:16.096Z"
+    },
+    {
+      "id": 19,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGIN",
+      "detail": "User admin (ADMIN) berhasil masuk ke sistem.",
+      "created_at": "2026-09-29T13:29:58.357Z"
+    },
+    {
+      "id": 18,
+      "user_id": 3,
+      "user_name": "Dra. Hj. Nurjanah, M.Pd.",
+      "role": "KEPALA_SEKOLAH",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Dra. Hj. Nurjanah, M.Pd. (KEPALA_SEKOLAH)",
+      "created_at": "2026-09-29T13:29:51.217Z"
+    },
+    {
+      "id": 17,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGOUT",
+      "detail": "User admin logout dari sistem.",
+      "created_at": "2026-09-29T13:27:55.845Z"
+    },
+    {
+      "id": 16,
+      "user_id": 3,
+      "user_name": "Dra. Hj. Nurjanah, M.Pd.",
+      "role": "KEPALA_SEKOLAH",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Dra. Hj. Nurjanah, M.Pd. (KEPALA_SEKOLAH)",
+      "created_at": "2026-09-29T13:27:42.600Z"
+    },
+    {
+      "id": 15,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGIN",
+      "detail": "User admin (ADMIN) berhasil masuk ke sistem.",
+      "created_at": "2026-09-29T13:27:34.794Z"
+    },
+    {
+      "id": 14,
+      "user_id": 4,
+      "user_name": "Budi Santoso, S.Pd",
+      "role": "GURU",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Budi Santoso, S.Pd (GURU)",
+      "created_at": "2026-09-29T13:25:32.046Z"
+    },
+    {
+      "id": 13,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGIN",
+      "detail": "User admin (ADMIN) berhasil masuk ke sistem.",
+      "created_at": "2026-09-29T13:24:59.394Z"
+    },
+    {
+      "id": 12,
+      "user_id": 7,
+      "user_name": "Ahmad Fauzi",
+      "role": "SISWA",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Ahmad Fauzi (SISWA)",
+      "created_at": "2026-09-29T13:22:16.779Z"
+    },
+    {
+      "id": 11,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGIN",
+      "detail": "User admin (ADMIN) berhasil masuk ke sistem.",
+      "created_at": "2026-09-29T13:22:10.393Z"
+    },
+    {
+      "id": 10,
+      "user_id": 1,
+      "user_name": "M. Fadillah, S.Kom",
+      "role": "SUPER_ADMIN",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: M. Fadillah, S.Kom (SUPER_ADMIN)",
+      "created_at": "2026-09-29T13:20:42.474Z"
+    },
+    {
+      "id": 9,
+      "user_id": 1,
+      "user_name": "M. Fadillah, S.Kom",
+      "role": "SUPER_ADMIN",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: M. Fadillah, S.Kom (SUPER_ADMIN)",
+      "created_at": "2026-09-29T13:20:15.700Z"
+    },
+    {
+      "id": 8,
+      "user_id": 4,
+      "user_name": "Budi Santoso, S.Pd",
+      "role": "GURU",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Budi Santoso, S.Pd (GURU)",
+      "created_at": "2026-09-29T13:20:04.284Z"
+    },
+    {
+      "id": 7,
+      "user_id": 3,
+      "user_name": "Dra. Hj. Nurjanah, M.Pd.",
+      "role": "KEPALA_SEKOLAH",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Dra. Hj. Nurjanah, M.Pd. (KEPALA_SEKOLAH)",
+      "created_at": "2026-09-29T13:19:55.412Z"
+    },
+    {
+      "id": 6,
+      "user_id": 4,
+      "user_name": "Budi Santoso, S.Pd",
+      "role": "GURU",
+      "action": "LOGOUT",
+      "detail": "User guru1 logout dari sistem.",
+      "created_at": "2026-09-29T13:18:33.901Z"
+    },
+    {
+      "id": 5,
+      "user_id": 4,
+      "user_name": "Budi Santoso, S.Pd",
+      "role": "GURU",
+      "action": "SWITCH_DEMO_ROLE",
+      "detail": "Beralih ke persona demo: Budi Santoso, S.Pd (GURU)",
+      "created_at": "2026-09-29T13:18:18.822Z"
+    },
+    {
+      "id": 4,
+      "user_id": 2,
+      "user_name": "Siti Rahmawati, A.Md",
+      "role": "ADMIN",
+      "action": "LOGIN",
+      "detail": "User admin (ADMIN) berhasil masuk ke sistem.",
+      "created_at": "2026-09-29T13:18:13.094Z"
+    },
+    {
+      "id": 3,
+      "user_id": null,
+      "user_name": "Guru",
+      "role": "GURU",
+      "action": "AI_GENERATE_QUESTIONS",
+      "detail": "Generate 3 soal HOTS: Matematika - Penjumlahan",
+      "created_at": "2026-09-29T13:10:49.294Z"
+    },
+    {
+      "id": 2,
+      "user_id": null,
+      "user_name": "Guru",
+      "role": "GURU",
+      "action": "AI_GENERATE_LESSON_PLAN",
+      "detail": "Generate Modul Ajar: Matematika - Penjumlahan 1-20",
+      "created_at": "2026-09-29T13:10:49.262Z"
+    },
+    {
+      "id": 1,
+      "user_id": 1,
+      "user_name": "M. Fadillah, S.Kom",
+      "role": "SUPER_ADMIN",
+      "action": "SYSTEM_BOOT",
+      "detail": "Ekosistem Muaraversa Digital School diinisialisasi dalam mode Final Production.",
+      "created_at": "2026-09-29T13:10:33.478Z"
+    }
+  ]
+}

@@ -1,65 +1,86 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muaraversa Admin Dashboard</title>
-<link rel="stylesheet" href="assets/css/admin.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muaraversa Admin Dashboard</title>
+  <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-<div class="container" id="admin-dashboard">
-<header class="admin-header">
-<div>
-<h1>Dashboard Admin Muaraversa</h1>
-<p>Panel pengelolaan data sekolah digital</p>
-</div>
-<div class="admin-actions">
-<span id="admin-status">Admin Aktif</span>
-<button type="button" onclick="logoutAdmin()">Logout</button>
-</div>
-</header>
+<div class="admin-container" id="admin-dashboard">
+  <header class="admin-header">
+    <div>
+      <h1 style="margin:0;font-size:24px;font-weight:800;color:#0f172a">Dashboard Admin Muaraversa</h1>
+      <p style="margin:4px 0 0;font-size:14px;color:var(--text-muted)">Panel Pengelolaan Data Sekolah Digital</p>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="/dashboard.html" class="btn btn-primary btn-sm">🚀 Buka Portal Terpadu (10 Batch)</a>
+      <span class="badge badge-success" id="admin-status">Admin Aktif</span>
+      <button type="button" class="btn btn-danger btn-sm" onclick="logoutAdmin()">Logout</button>
+    </div>
+  </header>
 
-<nav class="admin-nav" aria-label="Navigasi Admin">
-<a class="active" href="dashboard.html">Dashboard</a>
-<a href="teachers.html">Guru</a>
-<a href="students.html">Siswa</a>
-<a href="classes.html">Kelas</a>
-<a href="school.html">Sekolah</a>
-</nav>
+  <nav class="admin-nav" aria-label="Navigasi Admin">
+    <a class="active" href="dashboard.html">📊 Dashboard</a>
+    <a href="teachers.html">👨‍🏫 Data Guru</a>
+    <a href="students.html">🎒 Data Siswa</a>
+    <a href="classes.html">🚪 Kelas & Rombel</a>
+    <a href="school.html">🏫 Profil Sekolah</a>
+    <a href="/dashboard.html">✨ Akademik, CBT & AI Engine →</a>
+  </nav>
 
-<main>
-<section class="dashboard-intro">
-<h2>Ringkasan Sistem</h2>
-<p>Kelola data utama Muaraversa melalui panel admin.</p>
-</section>
+  <main>
+    <section style="margin-bottom:24px">
+      <h2 style="font-size:18px;font-weight:700">Ringkasan Sistem</h2>
+      <p style="color:var(--text-muted);font-size:14px">Data operasional satuan pendidikan terupdate secara real-time.</p>
+    </section>
 
-<section class="cards" aria-label="Ringkasan Data">
-<div class="card">
-<h3>Guru</h3>
-<p id="teachers">0</p>
-</div>
-<div class="card">
-<h3>Siswa</h3>
-<p id="students">0</p>
-</div>
-<div class="card">
-<h3>Kelas</h3>
-<p id="classes">0</p>
-</div>
-<div class="card">
-<h3>Sekolah</h3>
-<p id="school">-</p>
-</div>
-</section>
-</main>
+    <section class="grid-cols-4" aria-label="Ringkasan Data">
+      <div class="stat-card">
+        <div class="stat-icon-wrapper blue">👨‍🏫</div>
+        <div>
+          <div class="stat-value" id="teachers">0</div>
+          <div class="stat-label">Guru Terdaftar</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrapper green">🎒</div>
+        <div>
+          <div class="stat-value" id="students">0</div>
+          <div class="stat-label">Peserta Didik</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrapper amber">🚪</div>
+        <div>
+          <div class="stat-value" id="classes">0</div>
+          <div class="stat-label">Rombongan Belajar</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrapper purple">🏫</div>
+        <div>
+          <div class="stat-value" style="font-size:18px" id="school">-</div>
+          <div class="stat-label">Identitas Sekolah</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick action links -->
+    <div class="card" style="margin-top:24px">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">Akses Cepat Modul Lengkap Ekosistem</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="/dashboard.html" class="btn btn-secondary">📘 Modul Ajar & LKPD Kurikulum Merdeka</a>
+        <a href="/dashboard.html" class="btn btn-secondary">💻 CBT & Ujian Online</a>
+        <a href="/dashboard.html" class="btn btn-secondary">⏱️ Rekap Presensi Siswa & Guru</a>
+        <a href="/dashboard.html" class="btn btn-secondary">🏆 Buku Nilai & E-Raport</a>
+        <a href="/dashboard.html" class="btn btn-secondary">🤖 AI Assistant Guru</a>
+      </div>
+    </div>
+  </main>
 </div>
 
 <script src="assets/js/auth.js"></script>
 <script src="assets/js/dashboard.js"></script>
-<script>
-if (typeof requireAdmin === "function") {
-  requireAdmin();
-}
-</script>
 </body>
 </html>

@@ -1,26 +1,294 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Muaraversa</title>
-<style>
-body{font-family:Arial,sans-serif;background:#f1f5f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
-.card{background:white;padding:32px;border-radius:16px;width:320px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
-h1{text-align:center;color:#1e40af}
-input,button{width:100%;padding:12px;margin-top:12px;box-sizing:border-box;border-radius:8px}
-input{border:1px solid #cbd5e1}
-button{background:#1e40af;color:white;border:0;cursor:pointer}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Portal - MUARAVERSA Smart School Ecosystem</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background-color: #0f172a;
+      background-image: radial-gradient(at 0% 0%, rgba(30, 64, 175, 0.3) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.2) 0px, transparent 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    .auth-card {
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 480px;
+      padding: 36px 32px;
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .auth-logo {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+    .auth-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+    .auth-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .alert-box {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+    .alert-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+    }
+    .persona-select-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .persona-tile {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .persona-tile:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #1d4ed8;
+      transform: translateY(-1px);
+    }
+  </style>
 </head>
 <body>
-<div class="card">
-<h1>Muaraversa</h1>
-<p style="text-align:center">Digital School Platform</p>
-<input id="username" placeholder="Username">
-<input id="password" type="password" placeholder="Password">
-<button onclick="login()">Masuk</button>
-</div>
-<script src="js/auth.js"></script>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-logo">M</div>
+      <h1 class="auth-title">Masuk ke MUARAVERSA</h1>
+      <p class="auth-subtitle">Platform Digital Terpadu SDN Muarasari 1 Kota Bogor</p>
+    </div>
+
+    <!-- Alert Box -->
+    <div id="alertBox" class="alert-box alert-error" role="alert"></div>
+
+    <form id="loginForm" onsubmit="event.preventDefault(); handleUserLogin();">
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label" for="username" style="font-weight:600;font-size:13px;color:#334155">
+          Nama Pengguna (Username)
+        </label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="username" 
+          placeholder="Contoh: admin atau pak guru" 
+          required 
+          value="admin"
+          autocomplete="username"
+        />
+      </div>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <label class="form-label" for="password" style="font-weight:600;font-size:13px;color:#334155;margin:0">
+            Kata Sandi
+          </label>
+          <a href="#" style="font-size:12px;color:var(--primary)" onclick="alert('Untuk uji coba/demo, kata sandi universal adalah: admin123 atau change_this_password'); return false;">
+            Lupa Sandi?
+          </a>
+        </div>
+        <input 
+          type="password" 
+          class="form-control" 
+          id="password" 
+          placeholder="Masukkan kata sandi" 
+          required 
+          value="admin123"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:12px;font-size:14px;font-weight:700" id="btnLogin">
+        Masuk ke Portal Ekosistem →
+      </button>
+    </form>
+
+    <!-- Quick Persona Switcher Section -->
+    <div style="margin-top:28px;border-top:1px solid #e2e8f0;padding-top:20px">
+      <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;text-align:center;margin-bottom:8px">
+        Akses Cepat Mode Persona (Demo)
+      </div>
+      <div class="persona-select-grid">
+        <button type="button" class="persona-tile" onclick="fillDemo('superadmin', 'SUPER_ADMIN')">
+          <span>👑</span>
+          <div>
+            <div style="font-weight:700">Super Admin</div>
+            <div style="font-size:10px;color:#64748b">M. Fadillah, S.Kom</div>
+          </div>
+        </button>
+        <button type="button" class="persona-tile" onclick="fillDemo('admin', 'ADMIN')">
+          <span>💻</span>
+          <div>
+            <div style="font-weight:700">Admin Sekolah</div>
+            <div style="font-size:10px;color:#64748b">Siti Rahmawati, A.Md</div>
+          </div>
+        </button>
+        <button type="button" class="persona-tile" onclick="fillDemo('kepsek', 'KEPALA_SEKOLAH')">
+          <span>🏛️</span>
+          <div>
+            <div style="font-weight:700">Kepala Sekolah</div>
+            <div style="font-size:10px;color:#64748b">Dra. Hj. Nurjanah</div>
+          </div>
+        </button>
+        <button type="button" class="persona-tile" onclick="fillDemo('guru1', 'GURU')">
+          <span>👨‍🏫</span>
+          <div>
+            <div style="font-weight:700">Guru (Pak Budi)</div>
+            <div style="font-size:10px;color:#64748b">Wali Kelas 5A</div>
+          </div>
+        </button>
+        <button type="button" class="persona-tile" onclick="fillDemo('siswa1', 'SISWA')">
+          <span>👦</span>
+          <div>
+            <div style="font-weight:700">Peserta Didik</div>
+            <div style="font-size:10px;color:#64748b">Ahmad Fauzi (5A)</div>
+          </div>
+        </button>
+        <button type="button" class="persona-tile" onclick="fillDemo('ortu1', 'ORANG_TUA')">
+          <span>👨</span>
+          <div>
+            <div style="font-weight:700">Orang Tua Wali</div>
+            <div style="font-size:10px;color:#64748b">H. Hendra Gunawan</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:24px">
+      <a href="index.html" style="font-size:13px;color:var(--text-muted);font-weight:600">
+        ← Kembali ke Beranda Muaraversa
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function showAlert(msg) {
+      const box = document.getElementById('alertBox');
+      box.textContent = msg;
+      box.style.display = 'block';
+    }
+
+    function hideAlert() {
+      const box = document.getElementById('alertBox');
+      box.style.display = 'none';
+    }
+
+    async function fillDemo(username, role) {
+      hideAlert();
+      const btn = document.getElementById('btnLogin');
+      btn.disabled = true;
+      btn.textContent = `Beralih ke ${role}...`;
+
+      try {
+        const res = await fetch('/api/auth/switch-demo-role', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role })
+        });
+        const data = await res.json();
+        if (data.success && (data.token || data.jwt)) {
+          if (data.token) localStorage.setItem('muaraversa_token', data.token);
+          if (data.jwt) localStorage.setItem('muaraversa_jwt', data.jwt);
+          if (data.user) localStorage.setItem('muaraversa_user', JSON.stringify(data.user));
+          window.location.href = 'dashboard.html';
+        } else {
+          // Fallback to standard login
+          document.getElementById('username').value = username;
+          document.getElementById('password').value = 'admin123';
+          handleUserLogin();
+        }
+      } catch (err) {
+        document.getElementById('username').value = username;
+        document.getElementById('password').value = 'admin123';
+        handleUserLogin();
+      }
+    }
+
+    async function handleUserLogin() {
+      hideAlert();
+      const username = document.getElementById('username')?.value.trim();
+      const password = document.getElementById('password')?.value.trim();
+      const btn = document.getElementById('btnLogin');
+
+      if (!username || !password) {
+        showAlert('Nama pengguna dan kata sandi wajib diisi');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Memverifikasi kredensial...';
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+
+        if (data.success && (data.token || data.jwt)) {
+          if (data.token) localStorage.setItem('muaraversa_token', data.token);
+          if (data.jwt) localStorage.setItem('muaraversa_jwt', data.jwt);
+          if (data.user) {
+            localStorage.setItem('muaraversa_user', JSON.stringify(data.user));
+          }
+          window.location.href = 'dashboard.html';
+        } else {
+          showAlert(data.message || 'Nama pengguna atau kata sandi tidak cocok.');
+          btn.disabled = false;
+          btn.textContent = 'Masuk ke Portal Ekosistem →';
+        }
+      } catch (err) {
+        showAlert('Terjadi kendala jaringan saat menghubungi server autentikasi.');
+        btn.disabled = false;
+        btn.textContent = 'Masuk ke Portal Ekosistem →';
+      }
+    }
+  </script>
 </body>
 </html>

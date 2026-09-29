@@ -1,33 +1,957 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<title>Dashboard - Muaraversa</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body{font-family:Arial,sans-serif;background:#f4f7fb;margin:0;padding:20px}
-.container{max-width:800px;margin:auto}
-.card{background:white;padding:20px;border-radius:12px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
-.stat{background:#fff;padding:16px;border-radius:10px}
-button{padding:10px 16px;border:0;border-radius:8px;cursor:pointer}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUARAVERSA - Ekosistem Sekolah Digital Terpadu</title>
+  <meta name="description" content="Platform Digital Ekosistem Sekolah Terpadu: Akademik, Presensi, Raport Digital, Administrasi & AI Assistant.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="container">
-<div class="card">
-<h1>Muaraversa Dashboard</h1>
-<p id="user">Memuat pengguna...</p>
-<p id="role"></p>
-</div>
-<div class="stats">
-<div class="stat">Guru: <b id="guru">-</b></div>
-<div class="stat">Siswa: <b id="siswa">-</b></div>
-<div class="stat">Kelas: <b id="kelas">-</b></div>
-</div>
-<div class="card">
-<button onclick="logout()">Logout</button>
-</div>
-</div>
-<script src="js/dashboard.js"></script>
+
+  <!-- Top Persona Switcher Bar for Seamless Role Evaluation -->
+  <div class="persona-bar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-weight:700">⚡ Switch Persona Role:</span>
+      <span style="color:#94a3b8;font-size:11px">Uji coba langsung 6 peran ekosistem:</span>
+    </div>
+    <div class="persona-buttons" id="personaButtonGroup">
+      <button class="persona-btn" onclick="switchRole('SUPER_ADMIN')">👑 Super Admin</button>
+      <button class="persona-btn active" onclick="switchRole('ADMIN')">💻 Admin Sekolah</button>
+      <button class="persona-btn" onclick="switchRole('KEPALA_SEKOLAH')">🏛️ Kepala Sekolah</button>
+      <button class="persona-btn" onclick="switchRole('GURU')">👨‍🏫 Guru (Pak Budi)</button>
+      <button class="persona-btn" onclick="switchRole('SISWA')">👦 Siswa (Ahmad Fauzi)</button>
+      <button class="persona-btn" onclick="switchRole('ORANG_TUA')">👨 Orang Tua</button>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <div class="logo-badge">M</div>
+        <div>
+          <div class="brand-title">MUARAVERSA</div>
+          <div class="brand-subtitle" id="schoolSubtitle">SDN Muarasari 1</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">UTAMA</div>
+        <a class="nav-item active" onclick="showSection('dashboard', this)">
+          <span class="nav-icon">📊</span> Dashboard & Monitoring
+        </a>
+
+        <div class="nav-section-title" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">MANAJEMEN SEKOLAH</div>
+        <a class="nav-item" onclick="showSection('school-profile', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">
+          <span class="nav-icon">🏫</span> Profil Sekolah
+        </a>
+        <a class="nav-item" onclick="showSection('teachers', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">
+          <span class="nav-icon">👨‍🏫</span> Data Guru
+        </a>
+        <a class="nav-item" onclick="showSection('students', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH,GURU">
+          <span class="nav-icon">🎒</span> Data Siswa
+        </a>
+        <a class="nav-item" onclick="showSection('classes', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">
+          <span class="nav-icon">🚪</span> Kelas & Rombel
+        </a>
+        <a class="nav-item" onclick="showSection('subjects', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">
+          <span class="nav-icon">📖</span> Mata Pelajaran
+        </a>
+
+        <div class="nav-section-title">AKADEMIK & BELAJAR</div>
+        <a class="nav-item" onclick="showSection('schedules', this)">
+          <span class="nav-icon">📅</span> Jadwal Pelajaran
+        </a>
+        <a class="nav-item" onclick="showSection('materials', this)">
+          <span class="nav-icon">📚</span> Modul Ajar & LKPD
+        </a>
+        <a class="nav-item" onclick="showSection('assignments', this)">
+          <span class="nav-icon">📝</span> Tugas & Penilaian
+        </a>
+        <a class="nav-item" onclick="showSection('quizzes', this)">
+          <span class="nav-icon">💻</span> Ujian & CBT Online
+        </a>
+        <a class="nav-item" onclick="showSection('grades', this)">
+          <span class="nav-icon">🏆</span> Nilai & E-Raport
+        </a>
+
+        <div class="nav-section-title">KEHADIRAN & KOMUNIKASI</div>
+        <a class="nav-item" onclick="showSection('attendance', this)">
+          <span class="nav-icon">⏱️</span> Presensi & Absensi
+        </a>
+        <a class="nav-item" onclick="showSection('announcements', this)">
+          <span class="nav-icon">📢</span> Pengumuman Sekolah
+        </a>
+        <a class="nav-item" onclick="showSection('messages', this)">
+          <span class="nav-icon">💬</span> Pesan Internal
+        </a>
+
+        <div class="nav-section-title" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">ADMINISTRASI & ARSIP</div>
+        <a class="nav-item" onclick="showSection('letters', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">
+          <span class="nav-icon">✉️</span> Persuratan Digital
+        </a>
+        <a class="nav-item" onclick="showSection('archives', this)" data-roles="SUPER_ADMIN,ADMIN,KEPALA_SEKOLAH">
+          <span class="nav-icon">🗄️</span> Arsip Digital
+        </a>
+
+        <div class="nav-section-title">SMART SYSTEM & AI</div>
+        <a class="nav-item" onclick="showSection('ai-assistant', this)">
+          <span class="nav-icon">🤖</span> Muaraversa AI Assistant
+        </a>
+        <a class="nav-item" onclick="showSection('users-system', this)" data-roles="SUPER_ADMIN,ADMIN">
+          <span class="nav-icon">🔒</span> User & Audit Log
+        </a>
+      </nav>
+
+      <div style="padding:14px 16px;border-top:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--text-muted);display:flex;align-items:center;justify-content:space-between">
+          <span>SDN Muarasari 1</span>
+          <span style="font-weight:600;color:var(--primary)">Bogor Selatan</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="btn btn-secondary btn-sm" onclick="toggleSidebar()" style="display:none" id="mobileMenuBtn">☰</button>
+          <div class="topbar-title" id="pageMainHeader">Dashboard Ekosistem</div>
+          <span class="role-pill" id="currentRoleBadge">ADMIN</span>
+        </div>
+
+        <div class="topbar-right">
+          <button class="btn btn-secondary btn-sm" onclick="loadAllData()" title="Segarkan Data">🔄 Refresh</button>
+          <button class="btn btn-secondary btn-sm" onclick="showSection('ai-assistant')">✨ Tanya AI</button>
+          <div class="user-profile-btn">
+            <span id="userAvatar">👩‍💻</span>
+            <span id="userNameLabel">Siti Rahmawati, A.Md</span>
+          </div>
+          <button class="btn btn-danger btn-sm" onclick="handleLogout()">Keluar</button>
+        </div>
+      </header>
+
+      <!-- Dynamic Section Pages Container -->
+      <main class="page-container">
+
+        <!-- ================= SECTION 1: DASHBOARD & ANALYTICS ================= -->
+        <section id="section-dashboard" class="content-section">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Dashboard Ekosistem Sekolah</h1>
+              <p class="page-subtitle" id="dashboardGreeting">Selamat datang di Pusat Kendali Terpadu Muaraversa.</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary" onclick="showSection('ai-assistant')">✨ Buka Asisten AI Guru</button>
+              <button class="btn btn-secondary" onclick="window.print()">🖨️ Cetak Laporan</button>
+            </div>
+          </div>
+
+          <!-- Key Metrics Grid -->
+          <div class="grid-cols-4">
+            <div class="stat-card">
+              <div class="stat-icon-wrapper blue">👨‍🏫</div>
+              <div>
+                <div class="stat-value" id="statGuru">0</div>
+                <div class="stat-label">Tenaga Pendidik</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon-wrapper green">🎒</div>
+              <div>
+                <div class="stat-value" id="statSiswa">0</div>
+                <div class="stat-label">Peserta Didik Aktif</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon-wrapper amber">🚪</div>
+              <div>
+                <div class="stat-value" id="statKelas">0</div>
+                <div class="stat-label">Rombongan Belajar</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon-wrapper purple">⏱️</div>
+              <div>
+                <div class="stat-value" id="statPresensi">98%</div>
+                <div class="stat-label">Tingkat Kehadiran</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Executive Highlights & Schedule -->
+          <div class="grid-cols-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">📢 Pengumuman Terkini</div>
+                <button class="btn btn-secondary btn-sm" onclick="showSection('announcements')">Lihat Semua</button>
+              </div>
+              <div id="dashboardAnnouncementsList">Memuat pengumuman...</div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">📅 Jadwal Pelajaran Hari Ini</div>
+                <button class="btn btn-secondary btn-sm" onclick="showSection('schedules')">Jadwal Lengkap</button>
+              </div>
+              <div id="dashboardScheduleList">Memuat jadwal...</div>
+            </div>
+          </div>
+
+          <!-- Smart School Integration Card -->
+          <div class="ai-box">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+              <div>
+                <span class="ai-badge">MUARAVERSA SMART ENGINE</span>
+                <h3 style="font-size:18px;font-weight:800;margin-top:8px">Asisten Cerdas Guru & Analisis Belajar</h3>
+                <p style="font-size:13px;color:#334155;margin-top:4px">
+                  Otomatisasi pembuatan Modul Ajar Kurikulum Merdeka, penyusunan soal asesmen HOTS/AKM, dan deteksi dini capaian belajar siswa berbasis AI.
+                </p>
+              </div>
+              <button class="btn btn-primary" onclick="showSection('ai-assistant')">Mulai Sekarang →</button>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <span class="badge badge-info">✓ Kurikulum Merdeka</span>
+              <span class="badge badge-success">✓ Analisis Otomatis Raport</span>
+              <span class="badge badge-warning">✓ CBT Anti-Curang</span>
+              <span class="badge badge-info">✓ Multi-Role RBAC</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 2: PROFIL SEKOLAH ================= -->
+        <section id="section-school-profile" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Profil & Identitas Sekolah</h1>
+              <p class="page-subtitle">Kelola informasi resmi satuan pendidikan yang terhubung dengan rapor dan surat dinas.</p>
+            </div>
+            <button class="btn btn-primary" onclick="saveSchoolProfile()">💾 Simpan Perubahan</button>
+          </div>
+
+          <div class="card">
+            <form id="schoolProfileForm" onsubmit="event.preventDefault(); saveSchoolProfile();">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group">
+                  <label class="form-label">Nama Resmi Sekolah</label>
+                  <input class="form-control" id="formSchoolName" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">NPSN (Nomor Pokok Sekolah Nasional)</label>
+                  <input class="form-control" id="formSchoolNpsn" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Nama Kepala Sekolah</label>
+                  <input class="form-control" id="formSchoolPrincipal" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">NIP Kepala Sekolah</label>
+                  <input class="form-control" id="formSchoolPrincipalNip">
+                </div>
+                <div class="form-group" style="grid-column: span 2">
+                  <label class="form-label">Alamat Lengkap Sekolah</label>
+                  <input class="form-control" id="formSchoolAddress" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Nomor Telepon</label>
+                  <input class="form-control" id="formSchoolPhone">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Resmi</label>
+                  <input class="form-control" id="formSchoolEmail">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Website Sekolah</label>
+                  <input class="form-control" id="formSchoolWebsite">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Status Akreditasi</label>
+                  <select class="form-control" id="formSchoolAccreditation">
+                    <option value="A">A (Unggul)</option>
+                    <option value="B">B (Baik)</option>
+                    <option value="C">C (Cukup)</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 3: DATA GURU ================= -->
+        <section id="section-teachers" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Data Pendidik & Tenaga Kependidikan</h1>
+              <p class="page-subtitle">Daftar dewan guru pengajar, wali kelas, dan pembagian tugas pembelajaran.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddTeacherModal()">+ Tambah Guru Baru</button>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Lengkap</th>
+                    <th>NIP</th>
+                    <th>Mata Pelajaran / Tugas</th>
+                    <th>Status</th>
+                    <th>Kontak</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="teacherTableBody">
+                  <tr><td colspan="7">Memuat dewan guru...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 4: DATA SISWA ================= -->
+        <section id="section-students" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Data Peserta Didik</h1>
+              <p class="page-subtitle">Daftar siswa aktif, nomor induk siswa, pembagian rombel, dan data orang tua.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddStudentModal()">+ Tambah Siswa Baru</button>
+          </div>
+
+          <div class="card">
+            <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+              <input class="form-control" style="max-width:280px" placeholder="🔍 Cari nama atau NIS siswa..." id="studentSearchInput" oninput="filterStudents()">
+              <select class="form-control" style="max-width:200px" id="studentClassFilter" onchange="filterStudents()">
+                <option value="">Semua Kelas</option>
+              </select>
+            </div>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Siswa</th>
+                    <th>NIS / NISN</th>
+                    <th>Kelas</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Orang Tua / Wali</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                  <tr><td colspan="8">Memuat siswa...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 5: KELAS & ROMBEL ================= -->
+        <section id="section-classes" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Rombongan Belajar & Kelas</h1>
+              <p class="page-subtitle">Pengorganisasian tingkatan kelas, penugasan wali kelas, dan ruang kelas.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddClassModal()">+ Tambah Kelas Baru</button>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Kelas / Rombel</th>
+                    <th>Tingkat</th>
+                    <th>Ruang</th>
+                    <th>Wali Kelas</th>
+                    <th>Jumlah Siswa</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="classTableBody">
+                  <tr><td colspan="7">Memuat kelas...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 6: MATA PELAJARAN ================= -->
+        <section id="section-subjects" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Mata Pelajaran & Kurikulum</h1>
+              <p class="page-subtitle">Daftar muatan kurikulum, KKM (Kriteria Ketuntasan Minimal), dan kategori mata pelajaran.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddSubjectModal()">+ Tambah Mata Pelajaran</button>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Kode</th>
+                    <th>Nama Mata Pelajaran</th>
+                    <th>Kategori</th>
+                    <th>KKM</th>
+                    <th>Pengajar Terdaftar</th>
+                  </tr>
+                </thead>
+                <tbody id="subjectTableBody">
+                  <tr><td colspan="5">Memuat mata pelajaran...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 7: JADWAL PELAJARAN ================= -->
+        <section id="section-schedules" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Jadwal Pembelajaran Mingguan</h1>
+              <p class="page-subtitle">Waktu belajar mengajar terstruktur untuk seluruh kelas dan guru.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddScheduleModal()">+ Tambah Jadwal</button>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Hari</th>
+                    <th>Waktu</th>
+                    <th>Kelas</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Guru Pengampu</th>
+                    <th>Ruang</th>
+                  </tr>
+                </thead>
+                <tbody id="scheduleTableBody">
+                  <tr><td colspan="6">Memuat jadwal...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 8: MODUL AJAR & LKPD ================= -->
+        <section id="section-materials" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Bahan Pembelajaran, Modul & LKPD</h1>
+              <p class="page-subtitle">Penyimpanan modul pembelajaran Kurikulum Merdeka dan lembar kerja peserta didik digital.</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary" onclick="openAddMaterialModal()">+ Unggah Materi</button>
+              <button class="btn btn-success" onclick="showSection('ai-assistant')">✨ Buat dengan AI</button>
+            </div>
+          </div>
+
+          <div class="grid-cols-3" id="materialsGrid">
+            <!-- Material Cards -->
+          </div>
+        </section>
+
+        <!-- ================= SECTION 9: TUGAS & PENILAIAN ================= -->
+        <section id="section-assignments" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Tugas & Pengumpulan Siswa</h1>
+              <p class="page-subtitle">Pemberian tugas oleh guru, pengumpulan tugas siswa, dan pemberian umpan balik nilai.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddAssignmentModal()">+ Buat Tugas Baru</button>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">Daftar Penugasan Aktif</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Judul Tugas</th>
+                    <th>Kelas & Mapel</th>
+                    <th>Batas Waktu</th>
+                    <th>Skor Maksimal</th>
+                    <th>Aksi Guru / Siswa</th>
+                  </tr>
+                </thead>
+                <tbody id="assignmentTableBody">
+                  <tr><td colspan="5">Memuat tugas...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">Riwayat Pengumpulan & Nilai Siswa</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Siswa</th>
+                    <th>Tugas</th>
+                    <th>Jawaban Siswa</th>
+                    <th>Waktu Kumpul</th>
+                    <th>Nilai</th>
+                    <th>Umpan Balik Guru</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="submissionTableBody">
+                  <tr><td colspan="7">Memuat pengumpulan...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 10: CBT & KUIS ONLINE ================= -->
+        <section id="section-quizzes" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Ujian & Kuis CBT Online</h1>
+              <p class="page-subtitle">Computer Based Test (CBT) mandiri dengan bank soal, koreksi otomatis, dan rekap skor.</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary" onclick="openAddQuizModal()">+ Buat Paket Ujian</button>
+              <button class="btn btn-success" onclick="openGenerateSoalModal()">✨ Generate Soal AI</button>
+            </div>
+          </div>
+
+          <div class="grid-cols-2" id="quizCardsContainer">
+            <!-- Quizzes rendered here -->
+          </div>
+
+          <!-- Active Quiz Execution Box -->
+          <div id="cbtTestContainer" class="card" style="display:none;background:#f0fdf4;border-color:#86efac">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title" id="cbtQuizTitle">Sedang Mengerjakan CBT</h3>
+                <p style="font-size:12px;color:var(--text-muted)">Pilih jawaban yang benar dan klik selesaikan ujian.</p>
+              </div>
+              <span class="badge badge-success" id="cbtTimerBadge">Sisa Waktu: 30 Menit</span>
+            </div>
+            <div id="cbtQuestionsList"></div>
+            <div style="margin-top:20px;text-align:right">
+              <button class="btn btn-success" onclick="submitCbtExam()">Kirim & Kumpulkan Jawaban Ujian ✓</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 11: NILAI & E-RAPORT ================= -->
+        <section id="section-grades" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Buku Nilai & E-Raport Siswa</h1>
+              <p class="page-subtitle">Kompilasi nilai tugas, UTS, UAS, penetapan predikat, dan cetak laporan hasil belajar.</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary" onclick="openAddGradeModal()">+ Input Nilai Siswa</button>
+              <button class="btn btn-secondary" onclick="viewDigitalReport(1)">📄 Lihat E-Raport Siswa (Ahmad Fauzi)</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Siswa</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Tugas (30%)</th>
+                    <th>UTS (30%)</th>
+                    <th>UAS (40%)</th>
+                    <th>Nilai Akhir</th>
+                    <th>Predikat</th>
+                    <th>Catatan Capaian Kompetensi</th>
+                  </tr>
+                </thead>
+                <tbody id="gradeTableBody">
+                  <tr><td colspan="8">Memuat nilai raport...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Digital Report Card Preview Modal/Box -->
+          <div id="reportCardPreviewBox" class="card" style="display:none;border:2px solid #2563eb">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+              <div>
+                <h2 style="font-size:20px;font-weight:800;color:#1e3a8a">LAPORAN HASIL BELAJAR PESERTA DIDIK (E-RAPORT)</h2>
+                <p style="font-size:13px;color:#475569">Kurikulum Merdeka - SD Negeri Muarasari 1</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ Cetak Raport</button>
+            </div>
+
+            <div style="background:#f8fafc;padding:12px;border-radius:8px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px">
+              <div><strong>Nama Siswa:</strong> <span id="rapStudentName">-</span></div>
+              <div><strong>NIS / NISN:</strong> <span id="rapStudentNis">-</span></div>
+              <div><strong>Kelas / Semester:</strong> <span id="rapStudentClass">-</span> / Ganjil</div>
+              <div><strong>Tahun Ajaran:</strong> 2024/2025</div>
+            </div>
+
+            <table style="margin-bottom:16px">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Mata Pelajaran</th>
+                  <th>Nilai Akhir</th>
+                  <th>Capaian Kompetensi & Deskripsi</th>
+                </tr>
+              </thead>
+              <tbody id="rapGradesList"></tbody>
+            </table>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;text-align:center;font-size:13px">
+              <div>
+                <p>Orang Tua / Wali Siswa</p>
+                <div style="height:50px"></div>
+                <p><strong>( ......................................... )</strong></p>
+              </div>
+              <div>
+                <p>Bogor, 29 September 2026<br>Kepala Sekolah,</p>
+                <div style="height:50px"></div>
+                <p><strong><u>Dra. Hj. Nurjanah, M.Pd.</u></strong><br>NIP. 196805121992032001</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 12: PRESENSI & KEHADIRAN ================= -->
+        <section id="section-attendance" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Presensi Digital Harian</h1>
+              <p class="page-subtitle">Pencatatan kehadiran siswa dan dewan guru dengan rekapitulasi statistik otomatis.</p>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-primary" onclick="openRecordAttendanceModal()">+ Catat Presensi Siswa</button>
+              <button class="btn btn-secondary" onclick="recordTeacherSelfAttendance()">⏱️ Presensi Hadir Guru</button>
+            </div>
+          </div>
+
+          <div class="grid-cols-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">🎒 Presensi Siswa Hari Ini</div>
+              </div>
+              <div class="table-responsive">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Siswa</th>
+                      <th>Kelas</th>
+                      <th>Status</th>
+                      <th>Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody id="studentAttendanceTableBody">
+                    <tr><td colspan="4">Memuat presensi siswa...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">👨‍🏫 Presensi Dewan Guru Hari Ini</div>
+              </div>
+              <div class="table-responsive">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nama Guru</th>
+                      <th>Jam Masuk</th>
+                      <th>Status</th>
+                      <th>Catatan</th>
+                    </tr>
+                  </thead>
+                  <tbody id="teacherAttendanceTableBody">
+                    <tr><td colspan="4">Memuat presensi guru...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 13: PENGUMUMAN ================= -->
+        <section id="section-announcements" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Papan Informasi & Pengumuman Sekolah</h1>
+              <p class="page-subtitle">Publikasi surat edaran, kegiatan sekolah, dan kabar penting untuk seluruh warga sekolah.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddAnnouncementModal()">+ Terbitkan Pengumuman</button>
+          </div>
+
+          <div id="announcementsContainer" style="display:flex;flex-direction:column;gap:16px">
+            <!-- Announcements list -->
+          </div>
+        </section>
+
+        <!-- ================= SECTION 14: PESAN INTERNAL ================= -->
+        <section id="section-messages" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Komunikasi & Pesan Internal</h1>
+              <p class="page-subtitle">Kirim pesan privat langsung antara Guru, Orang Tua, Siswa, dan Pihak Sekolah.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openNewMessageModal()">✉️ Tulis Pesan Baru</button>
+          </div>
+
+          <div class="card">
+            <div id="messagesListContainer" style="display:flex;flex-direction:column;gap:12px">
+              <!-- Internal messages -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 15: PERSURATAN ================= -->
+        <section id="section-letters" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Administrasi Persuratan Digital</h1>
+              <p class="page-subtitle">Pengelolaan buku agenda surat masuk, surat keluar dinas, dan surat keterangan siswa.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddLetterModal()">+ Catat Surat Baru</button>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nomor Surat</th>
+                    <th>Jenis</th>
+                    <th>Perihal & Judul</th>
+                    <th>Tujuan / Pengirim</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="letterTableBody">
+                  <tr><td colspan="6">Memuat persuratan...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 16: ARSIP DIGITAL ================= -->
+        <section id="section-archives" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Arsip Digital & Dokumen Sekolah</h1>
+              <p class="page-subtitle">Penyimpanan terpusat dokumen akreditasi, KOSP, SK pembagian tugas, dan berkas kepegawaian.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddArchiveModal()">+ Tambah Arsip Digital</button>
+          </div>
+
+          <div class="grid-cols-3" id="archivesContainer">
+            <!-- Archives list -->
+          </div>
+        </section>
+
+        <!-- ================= SECTION 17: AI ASSISTANT GURU ================= -->
+        <section id="section-ai-assistant" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Muaraversa Smart AI Engine</h1>
+              <p class="page-subtitle">Kecerdasan buatan terintegrasi untuk menyusun Modul Ajar, Soal HOTS/AKM, dan analisis hasil belajar.</p>
+            </div>
+            <span class="ai-badge">GEMINI 3.8 FLASH POWERED</span>
+          </div>
+
+          <!-- Sub Tabs for AI Tools -->
+          <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchAiTab('tab-modul', this)">📘 Generator Modul Ajar</button>
+            <button class="tab-btn" onclick="switchAiTab('tab-soal', this)">✍️ Generator Soal HOTS/AKM</button>
+            <button class="tab-btn" onclick="switchAiTab('tab-analisis', this)">📊 Analisis Hasil Belajar</button>
+            <button class="tab-btn" onclick="switchAiTab('tab-chat', this)">💬 Tanya Asisten AI</button>
+          </div>
+
+          <!-- AI Tool 1: Lesson Plan Generator -->
+          <div id="tab-modul" class="ai-tab-content">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Penyusun Modul Ajar & RPP Kurikulum Merdeka Otomatis</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                <div class="form-group">
+                  <label class="form-label">Mata Pelajaran</label>
+                  <input class="form-control" id="aiSubject" value="Matematika">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Kelas / Fase</label>
+                  <input class="form-control" id="aiGrade" value="Kelas 1 / Fase A">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Alokasi Waktu</label>
+                  <input class="form-control" id="aiDuration" value="2 JP x 35 Menit">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Topik Pembelajaran / Materi Pokok</label>
+                <input class="form-control" id="aiTopic" value="Operasi Penjumlahan dan Pengurangan Bersusun Pendek Bilangan 1-20">
+              </div>
+              <button class="btn btn-primary" id="btnGenLessonPlan" onclick="generateAiLessonPlan()">🚀 Susun Modul Ajar dengan AI</button>
+
+              <div id="aiLessonPlanOutput" style="margin-top:20px;display:none" class="ai-box">
+                <!-- AI Output Rendered Here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Tool 2: Question Generator -->
+          <div id="tab-soal" class="ai-tab-content" style="display:none">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Pembuat Bank Soal Asesmen HOTS & AKM Otomatis</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
+                <div class="form-group">
+                  <label class="form-label">Mata Pelajaran</label>
+                  <input class="form-control" id="aiQSubject" value="Matematika">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Kelas</label>
+                  <input class="form-control" id="aiQGrade" value="Kelas 1">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tingkat Kesulitan</label>
+                  <select class="form-control" id="aiQDifficulty">
+                    <option value="HOTS">HOTS (Higher Order Thinking Skills)</option>
+                    <option value="AKM">Literasi & Numerasi AKM</option>
+                    <option value="Sedang">Sedang (Konseptual)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Topik / Stimulus Soal</label>
+                <input class="form-control" id="aiQTopic" value="Soal Cerita Kontekstual Jual Beli di Kantin Sekolah">
+              </div>
+              <button class="btn btn-primary" id="btnGenQuestions" onclick="generateAiQuestions()">🚀 Buat Soal Otomatis & Simpan ke Bank Soal</button>
+
+              <div id="aiQuestionsOutput" style="margin-top:20px;display:none"></div>
+            </div>
+          </div>
+
+          <!-- AI Tool 3: Student Learning Analysis -->
+          <div id="tab-analisis" class="ai-tab-content" style="display:none">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Diagnosis Capaian Belajar & Rekomendasi Pedagogis</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Pilih Peserta Didik untuk Dianalisis</label>
+                <select class="form-control" id="aiStudentSelect"></select>
+              </div>
+              <button class="btn btn-primary" onclick="runStudentAiAnalysis()">🔍 Analisis Profil Belajar Siswa</button>
+
+              <div id="aiStudentAnalysisOutput" style="margin-top:20px;display:none" class="ai-box"></div>
+            </div>
+          </div>
+
+          <!-- AI Tool 4: Chat Assistant -->
+          <div id="tab-chat" class="ai-tab-content" style="display:none">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">💬 Konsultasi Interaktif Asisten Cerdas Muaraversa</div>
+              </div>
+              <div id="chatMessagesBox" style="height:350px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px;background:#f8fafc">
+                <div style="margin-bottom:12px">
+                  <span class="badge badge-info">AI Asisten Muaraversa</span>
+                  <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #e2e8f0;margin-top:4px">
+                    Halo! Saya Asisten AI MUARAVERSA. Ada yang bisa saya bantu terkait administrasi pembelajaran, pembuatan materi, ide kegiatan kelas, atau evaluasi hasil belajar hari ini?
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <input class="form-control" id="chatInputText" placeholder="Ketik pertanyaan untuk Asisten AI..." onkeydown="if(event.key==='Enter') sendAiChat()">
+                <button class="btn btn-primary" onclick="sendAiChat()">Kirim</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= SECTION 18: USER MANAGEMENT & AUDIT LOG ================= -->
+        <section id="section-users-system" class="content-section" style="display:none">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Manajemen Akun Pengguna & Log Audit</h1>
+              <p class="page-subtitle">Kontrol hak akses peran (Role-Based Access Control) dan catatan aktivitas sistem.</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddUserModal()">+ Tambah Pengguna</button>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">Daftar Akun Pengguna Aktif</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Nama</th>
+                    <th>Peran (Role)</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="userTableBody">
+                  <tr><td colspan="5">Memuat pengguna...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">Catatan Audit Sistem Terakhir (Security Log)</h3>
+            <div class="table-responsive">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Pengguna</th>
+                    <th>Peran</th>
+                    <th>Tindakan (Action)</th>
+                    <th>Rincian Aktivitas</th>
+                  </tr>
+                </thead>
+                <tbody id="auditTableBody">
+                  <tr><td colspan="5">Memuat log audit...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ================= COMMON MODALS ================= -->
+
+  <!-- Modal Template: Generic -->
+  <div class="modal-overlay" id="genericModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="genericModalTitle">Form Entri</h3>
+        <button class="modal-close-btn" onclick="closeGenericModal()">✕</button>
+      </div>
+      <div id="genericModalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

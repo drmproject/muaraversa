@@ -1,95 +1,22 @@
-# Muaraversa Environment Setup
+# MUARAVERSA Environment Configuration
 
-## Project
+Konfigurasi environment variabel untuk deployment produksi.
 
-Name:
-Muaraversa
-
-Version:
-0.1.0
-
-Status:
-Foundation cleanup completed
-
-## Frontend
-
-Technology:
-
-- HTML
-- CSS
-- JavaScript
-
-Folder:
-
-frontend/
-
-Deployment target:
-
-- Cloudflare Pages
-
-## Backend
-
-Technology:
-
-- Cloudflare Worker
-
-Folder:
-
-backend/
-
-Deployment target:
-
-- Cloudflare Workers
-
-Development command:
+## Variabel Environment
 
 ```bash
-npm run dev
+# Port Web Server (Wajib di port 3000 untuk preview AI Studio)
+PORT=3000
+
+# Base URL API
+API_URL=http://localhost:3000
+
+# Nama dan Versi Aplikasi
+APP_NAME=Muaraversa
+APP_VERSION=1.0.0
+
+# Google Gemini AI API Key (Opsional - Jika tidak diset, sistem otomatis menggunakan Smart Pedagogical Fallback Engine)
+GEMINI_API_KEY=
 ```
 
-Deploy command:
-
-```bash
-npm run deploy
-```
-
-## Database
-
-Technology:
-
-- Cloudflare D1 Database
-
-Schema source:
-
-- database/migrations/
-
-## Environment Checklist
-
-Before deployment:
-
-- Configure Cloudflare account
-- Configure Worker bindings
-- Configure D1 database binding
-- Verify API endpoint
-- Test authentication flow
-
-## Development Flow
-
-Frontend
-↓
-Backend API
-↓
-Database
-↓
-AI Engine
-
-## Deployment
-
-Backend deployment uses:
-
-- Cloudflare Worker
-- Cloudflare D1 Database
-
-Frontend deployment uses:
-
-- Cloudflare Pages
+File `.env.example` telah disediakan pada root direktori.
