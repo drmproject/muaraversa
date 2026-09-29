@@ -8,7 +8,18 @@
 </head>
 <body onload="requireAdmin();">
 <div class="container">
+<header class="admin-header">
 <h1>Dashboard Admin Muaraversa</h1>
+<button onclick="logoutAdmin()">Logout</button>
+</header>
+
+<nav class="admin-nav">
+<a href="dashboard.html">Dashboard</a>
+<a href="teachers.html">Guru</a>
+<a href="students.html">Siswa</a>
+<a href="classes.html">Kelas</a>
+</nav>
+
 <div class="cards">
 <div class="card"><h3>Guru</h3><p id="teachers">0</p></div>
 <div class="card"><h3>Siswa</h3><p id="students">0</p></div>
