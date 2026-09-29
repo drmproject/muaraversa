@@ -26,6 +26,18 @@ import {
 } from "./routes/teachers.js";
 
 import {
+    students
+} from "./routes/students.js";
+
+import {
+    classes
+} from "./routes/classes.js";
+
+import {
+    school
+} from "./routes/school.js";
+
+import {
     jsonResponse
 } from "./services/response.js";
 
@@ -66,6 +78,18 @@ export default {
 
         if (url.pathname.startsWith("/api/teachers")) {
             return await teachers(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/students")) {
+            return await students(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/classes")) {
+            return await classes(request, env.DB);
+        }
+
+        if (url.pathname.startsWith("/api/school")) {
+            return await school(request, env.DB);
         }
 
         if (url.pathname === "/api/users") {
