@@ -17,23 +17,43 @@ export async function teachers(request, DB) {
 
     if (request.method === "POST") {
         const body = await request.json();
+
+        if (!body.name) {
+            return Response.json({ error: "Teacher name required" }, { status: 400 });
+        }
+
         await DB.prepare("INSERT INTO teachers (name, nip, subject) VALUES (?, ?, ?)")
-            .bind(body.name, body.nip, body.subject).run();
-        await writeAudit(DB, userId, "ADD_TEACHER", body.name || "");
+            .bind(body.name, body.nip || "", body.subject || "")
+            .run();
+
+        await writeAudit(DB, userId, "ADD_TEACHER", body.name);
+
         return Response.json({ success: true });
     }
 
     if (request.method === "PUT") {
         const body = await request.json();
+
+        if (!id || !body.name) {
+            return Response.json({ error: "Invalid teacher data" }, { status: 400 });
+        }
+
         await DB.prepare("UPDATE teachers SET name = ?, nip = ?, subject = ? WHERE id = ?")
-            .bind(body.name, body.nip, body.subject, id).run();
+            .bind(body.name, body.nip || "", body.subject || "", id)
+            .run();
+
         await writeAudit(DB, userId, "UPDATE_TEACHER", id);
+
         return Response.json({ success: true });
     }
 
     if (request.method === "DELETE") {
-        await DB.prepare("DELETE FROM teachers WHERE id = ?").bind(id).run();
+        await DB.prepare("DELETE FROM teachers WHERE id = ?")
+            .bind(id)
+            .run();
+
         await writeAudit(DB, userId, "DELETE_TEACHER", id);
+
         return Response.json({ success: true });
     }
 
