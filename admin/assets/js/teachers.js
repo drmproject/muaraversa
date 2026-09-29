@@ -1,8 +1,10 @@
 const API = '/api/teachers';
 let editingId = null;
 
-function getTeachers() {
-  return fetch(API).then(r => r.json());
+async function getTeachers() {
+  const response = await fetch(API);
+  if (!response.ok) throw new Error('Gagal mengambil data guru');
+  return response.json();
 }
 
 async function loadTeachers() {
@@ -11,32 +13,29 @@ async function loadTeachers() {
 
   try {
     const response = await getTeachers();
-    const teachers = response.data || response || [];
+    const teachers = response.data || response.teachers || response || [];
 
-    tbody.innerHTML = '';
-
-    teachers.forEach((teacher) => {
-      tbody.innerHTML += `
-        <tr>
-          <td>${teacher.name || ''}</td>
-          <td>${teacher.nip || ''}</td>
-          <td>${teacher.subject || ''}</td>
-          <td>
-            <button onclick="editTeacher(${teacher.id}, '${teacher.name || ''}', '${teacher.nip || ''}', '${teacher.subject || ''}')">Edit</button>
-            <button onclick="deleteTeacher(${teacher.id})">Hapus</button>
-          </td>
-        </tr>`;
-    });
+    tbody.innerHTML = teachers.map((teacher) => `
+      <tr>
+        <td>${teacher.name || ''}</td>
+        <td>${teacher.nip || ''}</td>
+        <td>${teacher.subject || ''}</td>
+        <td>
+          <button onclick="editTeacher(${teacher.id}, '${teacher.name || ''}', '${teacher.nip || ''}', '${teacher.subject || ''}')">Edit</button>
+          <button onclick="deleteTeacher(${teacher.id})">Hapus</button>
+        </td>
+      </tr>
+    `).join('');
   } catch (error) {
-    console.error('Gagal memuat guru:', error);
+    console.error(error.message);
   }
 }
 
 const form = document.getElementById('teacherForm');
 
 if (form) {
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
     const payload = {
       name: document.getElementById('name').value,
@@ -44,14 +43,13 @@ if (form) {
       subject: document.getElementById('subject').value
     };
 
-    const method = editingId ? 'PUT' : 'POST';
-    const url = editingId ? `${API}/${editingId}` : API;
-
-    await fetch(url, {
-      method,
-      headers: {'Content-Type':'application/json'},
+    const response = await fetch(editingId ? `${API}/${editingId}` : API, {
+      method: editingId ? 'PUT' : 'POST',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
+
+    if (!response.ok) return;
 
     editingId = null;
     form.reset();
@@ -69,10 +67,7 @@ function editTeacher(id, name, nip, subject) {
 async function deleteTeacher(id) {
   if (!confirm('Hapus data guru?')) return;
 
-  await fetch(`${API}/${id}`, {
-    method: 'DELETE'
-  });
-
+  await fetch(`${API}/${id}`, { method: 'DELETE' });
   loadTeachers();
 }
 
