@@ -4,6 +4,10 @@ import {
 } from "../middleware/auth.js";
 
 import {
+    writeAudit
+} from "../services/audit.js";
+
+import {
     jsonResponse
 } from "../services/response.js";
 
@@ -11,7 +15,7 @@ const ALLOWED_ROLES = ["admin", "operator", "guru"];
 
 export async function users(request, env) {
 
-    await requireAuth(request, env.DB);
+    const user = await requireAuth(request, env.DB);
     await requireRole(request, env.DB, ["admin"]);
 
     const method = request.method;
@@ -43,14 +47,10 @@ export async function users(request, env) {
                 (username, password_hash, name, role, status)
                 VALUES (?, ?, ?, ?, ?)
             `)
-            .bind(
-                body.username,
-                body.password_hash,
-                body.name,
-                body.role,
-                "active"
-            )
+            .bind(body.username, body.password_hash, body.name, body.role, "active")
             .run();
+
+        await writeAudit(env.DB, user.id, "CREATE_USER", body.username || "");
 
         return jsonResponse({
             success: true,
@@ -75,13 +75,10 @@ export async function users(request, env) {
                 SET name=?, role=?, status=?
                 WHERE id=?
             `)
-            .bind(
-                body.name,
-                body.role,
-                body.status,
-                id
-            )
+            .bind(body.name, body.role, body.status, id)
             .run();
+
+        await writeAudit(env.DB, user.id, "UPDATE_USER", String(id));
 
         return jsonResponse({
             success: true,
@@ -100,6 +97,8 @@ export async function users(request, env) {
             `)
             .bind(id)
             .run();
+
+        await writeAudit(env.DB, user.id, "DEACTIVATE_USER", String(id));
 
         return jsonResponse({
             success: true,
