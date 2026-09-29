@@ -8,9 +8,13 @@
 <body>
 <h1>Data Kelas</h1>
 <form id="classForm">
+<input type="hidden" id="class_id">
 <input id="name" placeholder="Nama Kelas" required>
-<input id="teacher_id" placeholder="ID Wali Kelas">
+<select id="teacher_id">
+<option value="">Pilih Wali Kelas</option>
+</select>
 <button type="submit">Simpan Kelas</button>
+<button type="button" onclick="resetClassForm()">Batal</button>
 </form>
 <table border="1">
 <thead><tr><th>No</th><th>Kelas</th><th>Wali Kelas</th><th>Aksi</th></tr></thead>
