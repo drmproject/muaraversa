@@ -1,7 +1,6 @@
 import { writeAudit } from "../services/audit.js";
 
 export async function classes(request, DB) {
-
     if (!DB) {
         return Response.json({ error: "Database not configured" }, { status: 500 });
     }
@@ -17,17 +16,29 @@ export async function classes(request, DB) {
 
     if (request.method === "POST") {
         const body = await request.json();
+
+        if (!body.name) {
+            return Response.json({ error: "Class name is required" }, { status: 400 });
+        }
+
         await DB.prepare("INSERT INTO classes (name, teacher_id) VALUES (?, ?)")
-            .bind(body.name, body.teacher_id).run();
-        await writeAudit(DB, userId, "CREATE_CLASS", body.name || "");
+            .bind(body.name, body.teacher_id || null).run();
+        await writeAudit(DB, userId, "CREATE_CLASS", body.name);
+
         return Response.json({ success: true });
     }
 
     if (request.method === "PUT") {
         const body = await request.json();
+
+        if (!body.name) {
+            return Response.json({ error: "Class name is required" }, { status: 400 });
+        }
+
         await DB.prepare("UPDATE classes SET name = ?, teacher_id = ? WHERE id = ?")
-            .bind(body.name, body.teacher_id, id).run();
+            .bind(body.name, body.teacher_id || null, id).run();
         await writeAudit(DB, userId, "UPDATE_CLASS", id);
+
         return Response.json({ success: true });
     }
 
