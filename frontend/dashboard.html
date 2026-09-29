@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <title>Dashboard - Muaraversa</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body{font-family:Arial,sans-serif;background:#f4f7fb;margin:0;padding:20px}
-.card{background:white;padding:20px;border-radius:12px;max-width:600px;margin:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.container{max-width:800px;margin:auto}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.stat{background:#fff;padding:16px;border-radius:10px}
 button{padding:10px 16px;border:0;border-radius:8px;cursor:pointer}
 </style>
 </head>
 <body>
+<div class="container">
 <div class="card">
 <h1>Muaraversa Dashboard</h1>
 <p id="user">Memuat pengguna...</p>
 <p id="role"></p>
+</div>
+<div class="stats">
+<div class="stat">Guru: <b id="guru">-</b></div>
+<div class="stat">Siswa: <b id="siswa">-</b></div>
+<div class="stat">Kelas: <b id="kelas">-</b></div>
+</div>
+<div class="card">
 <button onclick="logout()">Logout</button>
+</div>
 </div>
 <script src="js/dashboard.js"></script>
 </body>
