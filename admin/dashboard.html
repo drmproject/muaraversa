@@ -6,7 +6,7 @@
 <title>Muaraversa Admin Dashboard</title>
 <link rel="stylesheet" href="assets/css/admin.css">
 </head>
-<body>
+<body onload="requireAdmin();">
 <div class="container">
 <h1>Dashboard Admin Muaraversa</h1>
 <div class="cards">
@@ -16,6 +16,7 @@
 <div class="card"><h3>Sekolah</h3><p id="school">-</p></div>
 </div>
 </div>
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
