@@ -1,8 +1,13 @@
+import { requireAuth } from "../middleware/auth.js";
+import { writeAudit } from "../services/audit.js";
+
 export async function students(request, DB) {
 
     if (!DB) {
         return Response.json({ error: "Database not configured" }, { status: 500 });
     }
+
+    const user = await requireAuth(request, DB);
 
     const url = new URL(request.url);
     const id = url.pathname.split("/").pop();
@@ -17,6 +22,9 @@ export async function students(request, DB) {
         await DB.prepare(
             "INSERT INTO students (name, nis, class_id) VALUES (?, ?, ?)"
         ).bind(body.name, body.nis, body.class_id).run();
+
+        await writeAudit(DB, user.id, "ADD_STUDENT", body.name || "");
+
         return Response.json({ success: true });
     }
 
@@ -25,6 +33,9 @@ export async function students(request, DB) {
         await DB.prepare(
             "UPDATE students SET name = ?, nis = ?, class_id = ? WHERE id = ?"
         ).bind(body.name, body.nis, body.class_id, id).run();
+
+        await writeAudit(DB, user.id, "UPDATE_STUDENT", id);
+
         return Response.json({ success: true });
     }
 
@@ -32,6 +43,9 @@ export async function students(request, DB) {
         await DB.prepare("DELETE FROM students WHERE id = ?")
             .bind(id)
             .run();
+
+        await writeAudit(DB, user.id, "DELETE_STUDENT", id);
+
         return Response.json({ success: true });
     }
 
