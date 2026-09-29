@@ -1,6 +1,13 @@
 const API = "";
 
 async function loadDashboard() {
+  const elements = {
+    teachers: document.getElementById("teachers"),
+    students: document.getElementById("students"),
+    classes: document.getElementById("classes"),
+    school: document.getElementById("school")
+  };
+
   try {
     const response = await fetch(API + "/api/dashboard");
 
@@ -10,18 +17,19 @@ async function loadDashboard() {
 
     const data = await response.json();
 
-    const teachers = document.getElementById("teachers");
-    const students = document.getElementById("students");
-    const classes = document.getElementById("classes");
-    const school = document.getElementById("school");
-
-    if (teachers) teachers.textContent = data.total_guru ?? 0;
-    if (students) students.textContent = data.total_siswa ?? 0;
-    if (classes) classes.textContent = data.total_kelas ?? 0;
-    if (school) school.textContent = data.sekolah?.name ?? "-";
+    if (elements.teachers) elements.teachers.textContent = data.total_guru ?? 0;
+    if (elements.students) elements.students.textContent = data.total_siswa ?? 0;
+    if (elements.classes) elements.classes.textContent = data.total_kelas ?? 0;
+    if (elements.school) elements.school.textContent = data.sekolah?.name ?? "-";
 
   } catch (error) {
     console.error("Dashboard API error:", error.message);
+
+    Object.values(elements).forEach((element) => {
+      if (element && element.textContent === "") {
+        element.textContent = "0";
+      }
+    });
   }
 }
 
