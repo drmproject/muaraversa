@@ -5,7 +5,7 @@ export async function school(request, DB) {
     }
 
     if (request.method === "GET") {
-        const result = await DB.prepare("SELECT * FROM school LIMIT 1").all();
+        const result = await DB.prepare("SELECT * FROM schools LIMIT 1").all();
         return Response.json({ school: result.results?.[0] || null });
     }
 
@@ -13,8 +13,8 @@ export async function school(request, DB) {
         const body = await request.json();
 
         await DB.prepare(
-            "UPDATE school SET name = ?, address = ?, phone = ? WHERE id = 1"
-        ).bind(body.name, body.address, body.phone).run();
+            "UPDATE schools SET name = ?, address = ? WHERE id = 1"
+        ).bind(body.name, body.address).run();
 
         return Response.json({ success: true });
     }
