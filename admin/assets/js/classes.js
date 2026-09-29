@@ -1,10 +1,15 @@
 const API = '/api/classes';
 const TEACHER_API = '/api/teachers';
 
-async function getJson(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Request failed');
-  return response.json();
+async function getJson(url, options = {}) {
+  const response = await fetch(url, options);
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Request failed');
+  }
+
+  return data;
 }
 
 async function loadTeachers() {
@@ -14,12 +19,20 @@ async function loadTeachers() {
   try {
     const data = await getJson(TEACHER_API);
     const teachers = data.teachers || data.data || [];
+
     select.innerHTML = '<option value="">Pilih Wali Kelas</option>';
+
+    if (!teachers.length) {
+      select.innerHTML += '<option value="">Data guru kosong</option>';
+      return;
+    }
+
     teachers.forEach((teacher) => {
-      select.innerHTML += `<option value="${teacher.id}">${teacher.name || teacher.nama || ''}</option>`;
+      select.innerHTML += `<option value="${teacher.id}">${teacher.name || teacher.nama || 'Tanpa Nama'}</option>`;
     });
   } catch (error) {
     console.error('Gagal memuat guru:', error);
+    select.innerHTML = '<option value="">Gagal memuat guru</option>';
   }
 }
 
@@ -32,11 +45,18 @@ async function loadClasses() {
     const classes = data.classes || data.data || [];
 
     list.innerHTML = '';
+
+    if (!classes.length) {
+      list.innerHTML = '<tr><td colspan="4">Belum ada data kelas</td></tr>';
+      return;
+    }
+
     classes.forEach((item, index) => {
-      list.innerHTML += `<tr><td>${index + 1}</td><td>${item.name || ''}</td><td>${item.teacher_name || item.teacher_id || ''}</td><td><button onclick="editClass(${item.id}, '${item.name || ''}', ${item.teacher_id || 0})">Edit</button> <button onclick="deleteClass(${item.id})">Hapus</button></td></tr>`;
+      list.innerHTML += `<tr><td>${index + 1}</td><td>${item.name || '-'}</td><td>${item.teacher_name || item.teacher_id || '-'}</td><td><button onclick="editClass(${item.id}, '${(item.name || '').replace(/'/g, "\\'")}', ${item.teacher_id || 0})">Edit</button> <button onclick="deleteClass(${item.id})">Hapus</button></td></tr>`;
     });
   } catch (error) {
     console.error('Gagal memuat kelas:', error);
+    list.innerHTML = '<tr><td colspan="4">Gagal memuat data kelas</td></tr>';
   }
 }
 
@@ -51,22 +71,40 @@ if (form) {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    const nameInput = document.getElementById('name');
+    const teacherInput = document.getElementById('teacher_id');
     const id = document.getElementById('class_id').value;
+
+    const name = nameInput.value.trim();
+    const teacherId = teacherInput.value;
+
+    if (!name) {
+      alert('Nama kelas wajib diisi');
+      return;
+    }
+
+    if (!teacherId) {
+      alert('Wali kelas wajib dipilih');
+      return;
+    }
+
     const payload = {
-      name: document.getElementById('name').value,
-      teacher_id: document.getElementById('teacher_id').value
+      name,
+      teacher_id: teacherId
     };
 
     try {
-      await fetch(id ? `${API}/${id}` : API, {
+      await getJson(id ? `${API}/${id}` : API, {
         method: id ? 'PUT' : 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
       });
+
       resetClassForm();
-      loadClasses();
+      await loadClasses();
     } catch (error) {
       console.error('Gagal menyimpan kelas:', error);
+      alert(error.message || 'Gagal menyimpan data kelas');
     }
   });
 }
@@ -87,9 +125,10 @@ async function deleteClass(id) {
   if (!confirm('Hapus kelas?')) return;
 
   try {
-    await fetch(`${API}/${id}`, {method: 'DELETE'});
-    loadClasses();
+    await getJson(`${API}/${id}`, {method: 'DELETE'});
+    await loadClasses();
   } catch (error) {
     console.error('Gagal menghapus kelas:', error);
+    alert(error.message || 'Gagal menghapus kelas');
   }
 }
