@@ -2,41 +2,29 @@
 
 const APP_NAME = "Muaraversa";
 
+const API_BASE_URL = "/api";
+
 function showMessage(message) {
     console.log(`${APP_NAME}: ${message}`);
 }
 
 async function checkAPI() {
-
     try {
+        const response = await fetch(`${API_BASE_URL}/health`);
+        const result = await response.json();
 
-        const response = await fetch(
-            "../backend/worker.js"
-        );
+        console.log("API Status:", result);
+        return result;
 
-        const result = await response.text();
-
-        console.log(result);
-
-    } catch(error) {
-
-        console.error(
-            "API Connection Error:",
-            error
-        );
-
+    } catch (error) {
+        console.error("API Connection Error:", error);
+        return null;
     }
-
 }
-
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
-
-        showMessage(
-            "Frontend initialized"
-        );
-
+        showMessage("Frontend initialized");
     }
 );
