@@ -15,7 +15,7 @@ async function loadTeachers() {
     const response = await getTeachers();
     const teachers = response.data || response.teachers || response || [];
 
-    tbody.innerHTML = teachers.map((teacher) => `
+    tbody.innerHTML = teachers.length ? teachers.map((teacher) => `
       <tr>
         <td>${teacher.name || ''}</td>
         <td>${teacher.nip || ''}</td>
@@ -25,9 +25,9 @@ async function loadTeachers() {
           <button onclick="deleteTeacher(${teacher.id})">Hapus</button>
         </td>
       </tr>
-    `).join('');
+    `).join('') : '<tr><td colspan="4">Belum ada data guru</td></tr>';
   } catch (error) {
-    console.error(error.message);
+    console.error('Teachers load error:', error.message);
   }
 }
 
@@ -38,22 +38,31 @@ if (form) {
     event.preventDefault();
 
     const payload = {
-      name: document.getElementById('name').value,
-      nip: document.getElementById('nip').value,
-      subject: document.getElementById('subject').value
+      name: document.getElementById('name').value.trim(),
+      nip: document.getElementById('nip').value.trim(),
+      subject: document.getElementById('subject').value.trim()
     };
 
-    const response = await fetch(editingId ? `${API}/${editingId}` : API, {
-      method: editingId ? 'PUT' : 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    });
+    if (!payload.name) {
+      alert('Nama guru wajib diisi');
+      return;
+    }
 
-    if (!response.ok) return;
+    try {
+      const response = await fetch(editingId ? `${API}/${editingId}` : API, {
+        method: editingId ? 'PUT' : 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
 
-    editingId = null;
-    form.reset();
-    loadTeachers();
+      if (!response.ok) throw new Error('Gagal menyimpan data guru');
+
+      editingId = null;
+      form.reset();
+      loadTeachers();
+    } catch (error) {
+      console.error('Teachers save error:', error.message);
+    }
   });
 }
 
@@ -67,7 +76,9 @@ function editTeacher(id, name, nip, subject) {
 async function deleteTeacher(id) {
   if (!confirm('Hapus data guru?')) return;
 
-  await fetch(`${API}/${id}`, { method: 'DELETE' });
+  const response = await fetch(`${API}/${id}`, { method: 'DELETE' });
+  if (!response.ok) return;
+
   loadTeachers();
 }
 
